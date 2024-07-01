@@ -10,6 +10,7 @@ import Application from './components/Application';
 import Employment from './components/Employment';
 import Reference from './components/Reference';
 import AddApplicant from './components/AddApplicant';
+import EditApplicant from './components/EditApplicant';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/dashboard/application" element={<Application />} />
           <Route path="/dashboard/reference" element={<Reference />} />
           <Route path="/dashboard/add_applicant" element={<AddApplicant />} />
+          <Route path="/dashboard/edit_applicant/:id" element={<EditApplicant />} />
         </Route>
       </Routes>
     </BrowserRouter>

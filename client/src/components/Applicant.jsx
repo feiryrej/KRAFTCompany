@@ -67,7 +67,7 @@ const Applicant = () => {
           </thead>
           <tbody>
             {applicants.map((applicant) => (
-              <tr key={applicant.id}>
+              <tr key={applicant.Applicant_ID}>
                 <td>{applicant.Applicant_ID}</td>
                 <td>{applicant.Name}</td>
                 <td>{applicant.SSS_number}</td>
@@ -77,14 +77,14 @@ const Applicant = () => {
                 <td>
                   <div className="btn-group" role="group">
                     <Link
-                      to={`/dashboard/edit_applicant/${applicant.id}`}
+                      to={`/dashboard/edit_applicant/${applicant.Applicant_ID}`}
                       className="btn btn-info btn-sm me-2"
                     >
                       Edit
                     </Link>
                     <button
                       className="btn btn-warning btn-sm"
-                      onClick={() => handleDelete(applicant.id)}
+                      onClick={() => handleDelete(applicant.Applicant_ID)}
                     >
                       Delete
                     </button>

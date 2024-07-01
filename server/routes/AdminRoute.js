@@ -67,6 +67,36 @@ router.get('/get_applicants', (req, res) => {
     });
 });
 
+router.get('/applicant/:id', (req, res) => {
+    const applicantId = req.params.id;
+    const sql = 'SELECT Applicant_ID, Name, SSS_number, Address, Phone_No, Email FROM applicant WHERE Applicant_ID = ?';
+
+    con.query(sql, [applicantId], (err, result) => {
+        if (err) {
+            console.error('Error executing query:', err);
+            return res.status(500).json({ status: 'Error', error: 'Failed to fetch applicant' });
+        }
+        return res.json({ status: 'Success', Result: result });
+    });
+});
+
+router.put('/edit_applicant/:id', (req, res) => {
+    const applicantId = req.params.id;
+    const { Name, SSS_number, Address, Phone_No, Email } = req.body;
+
+    const sql = 'UPDATE applicant SET Name = ?, SSS_number = ?, Address = ?, Phone_No = ?, Email = ? WHERE Applicant_ID = ?';
+    const values = [Name, SSS_number, Address, Phone_No, Email, applicantId];
+
+    con.query(sql, values, (err, result) => {
+        if (err) {
+            console.error('Error executing query:', err);
+            return res.status(500).json({ status: 'Error', error: 'Failed to update applicant' });
+        }
+        return res.json({ status: 'Success' });
+    });
+});
+
+
 
 
 
