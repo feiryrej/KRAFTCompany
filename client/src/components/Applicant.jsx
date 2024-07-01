@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Applicant = () => {
   const [applicants, setApplicants] = useState([]);
   const [error, setError] = useState("");
+  const navigate = useNavigate(); // Rename to navigate or any other appropriate name
 
   useEffect(() => {
     fetchApplicants();
@@ -17,7 +18,6 @@ const Applicant = () => {
       );
       if (response.data.status === "Success") {
         setApplicants(response.data.applicants);
-        console.log("Fetched applicants:", response.data.applicants); // Log applicants array to check structure
       } else {
         setError(response.data.error || "Failed to fetch applicants");
       }
@@ -28,20 +28,18 @@ const Applicant = () => {
   };
 
   const handleDelete = async (id) => {
-    try {
-      const response = await axios.delete(
-        `http://localhost:3000/auth/delete_applicant/${id}`
-      );
-      if (response.data.status === "Success") {
-        fetchApplicants(); // Refresh applicants after deletion
-      } else {
-        setError(response.data.error || "Failed to delete applicant");
-      }
-    } catch (error) {
-      console.error("Error deleting applicant:", error);
-      setError("Failed to delete applicant");
-    }
-  };
+  try {
+    const response = await axios.delete(
+      `http://localhost:3000/auth/auth/delete_applicant/${id}`
+    );
+    if (response.status === 200) {
+      fetchApplicants(); // Refresh applicants after deletion
+    } 
+  } catch (error) {
+    console.error("Error deleting applicant:", error);
+    setError("Failed to delete applicant");
+  }
+};
 
   return (
     <div className="px-5 mt-3">

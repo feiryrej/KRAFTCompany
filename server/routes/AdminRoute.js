@@ -96,6 +96,18 @@ router.put('/edit_applicant/:id', (req, res) => {
     });
 });
 
+router.delete("/auth/delete_applicant/:id", (req, res) => {
+    const id = req.params.id;
+    const sql = "DELETE FROM applicant WHERE Applicant_ID = ?";
+    con.query(sql, [id], (err, result) => {
+      if (err) {
+        console.error("Query Error:", err);
+        return res.json({ status: false, error: "Failed to delete applicant" });
+      }
+      return res.json({ status: true, result });
+    });
+  });
+  
 
 
 
