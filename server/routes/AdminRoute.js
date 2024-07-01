@@ -108,6 +108,39 @@ router.delete("/auth/delete_applicant/:id", (req, res) => {
     });
   });
   
+  router.get('/admin_count', (req, res) => {
+    const sql = "SELECT COUNT(id) AS admin FROM admin";
+    con.query(sql, (err, result) => {
+        if(err) return res.json({Status: false, Error: "Query Error: " + err});
+        return res.json({Status: true, Result: result});
+    });
+});
+
+router.get('/applicant_count', (req, res) => {
+    const sql = "SELECT COUNT(Applicant_id) AS applicants FROM applicant";
+    con.query(sql, (err, result) => {
+        if (err) return res.json({Status: false, Error: "Query Error: " + err});
+        return res.json({Status: true, Result: result});
+    });
+});
+
+
+router.get('/application_count', (req, res) => {
+    const sql = "SELECT COUNT(application_id) AS applications FROM job_application";
+    con.query(sql, (err, result) => {
+        if (err) return res.json({Status: false, Error: "Query Error: " + err});
+        return res.json({Status: true, Result: result});
+    });
+});
+
+
+router.get('/admin_records', (req, res) => {
+    const sql = "SELECT * FROM admin";
+    con.query(sql, (err, result) => {
+        if (err) return res.json({Status: false, Error: "Query Error: " + err});
+        return res.json({Status: true, Result: result});
+    });
+});
 
 
 

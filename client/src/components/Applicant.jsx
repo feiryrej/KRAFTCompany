@@ -28,18 +28,23 @@ const Applicant = () => {
   };
 
   const handleDelete = async (id) => {
-  try {
-    const response = await axios.delete(
-      `http://localhost:3000/auth/auth/delete_applicant/${id}`
-    );
-    if (response.status === 200) {
-      fetchApplicants(); // Refresh applicants after deletion
-    } 
-  } catch (error) {
-    console.error("Error deleting applicant:", error);
-    setError("Failed to delete applicant");
-  }
-};
+    try {
+      const confirmDelete = window.confirm("Are you sure you want to delete this applicant?");
+      if (!confirmDelete) {
+        return; // If user cancels deletion, do nothing
+      }
+
+      const response = await axios.delete(
+        `http://localhost:3000/auth/auth/delete_applicant/${id}`
+      );
+      if (response.status === 200) {
+        fetchApplicants(); // Refresh applicants after deletion
+      } 
+    } catch (error) {
+      console.error("Error deleting applicant:", error);
+      setError("Failed to delete applicant");
+    }
+  };
 
   return (
     <div className="px-5 mt-3">
