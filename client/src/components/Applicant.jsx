@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 const Applicant = () => {
   const [applicants, setApplicants] = useState([]);
   const [error, setError] = useState("");
-  const navigate = useNavigate(); // Rename to navigate or any other appropriate name
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchApplicants();
@@ -31,19 +31,38 @@ const Applicant = () => {
     try {
       const confirmDelete = window.confirm("Are you sure you want to delete this applicant?");
       if (!confirmDelete) {
-        return; // If user cancels deletion, do nothing
+        return;
       }
 
       const response = await axios.delete(
-        `http://localhost:3000/auth/auth/delete_applicant/${id}`
+        `http://localhost:3000/auth/delete_applicant/${id}`
       );
       if (response.status === 200) {
-        fetchApplicants(); // Refresh applicants after deletion
+        fetchApplicants();
       } 
     } catch (error) {
       console.error("Error deleting applicant:", error);
       setError("Failed to delete applicant");
     }
+  };
+
+  const handlePrint = (applicant) => {
+    const printContent = `
+      <div>
+        <h2>Applicant Details</h2>
+        <p><strong>ID:</strong> ${applicant.Applicant_ID}</p>
+        <p><strong>Name:</strong> ${applicant.Name}</p>
+        <p><strong>SSS Number:</strong> ${applicant.SSS_number}</p>
+        <p><strong>Address:</strong> ${applicant.Address}</p>
+        <p><strong>Phone Number:</strong> ${applicant.Phone_No}</p>
+        <p><strong>Email:</strong> ${applicant.Email}</p>
+      </div>
+    `;
+    
+    const newWindow = window.open('', '', 'width=800,height=600');
+    newWindow.document.write(printContent);
+    newWindow.document.close();
+    newWindow.print();
   };
 
   return (
@@ -86,10 +105,16 @@ const Applicant = () => {
                       Edit
                     </Link>
                     <button
-                      className="btn btn-warning btn-sm"
+                      className="btn btn-warning btn-sm me-2"
                       onClick={() => handleDelete(applicant.Applicant_ID)}
                     >
                       Delete
+                    </button>
+                    <button
+                      className="btn btn-secondary btn-sm"
+                      onClick={() => handlePrint(applicant)}
+                    >
+                      Print
                     </button>
                   </div>
                 </td>
