@@ -234,4 +234,113 @@ router.delete('/auth/delete_education/:id', (req, res) => {
   });
 });
 
+// POST /auth/add_employment
+router.post('/add_employment', (req, res) => {
+    const {
+      Applicant_ID,
+      Employment_Start_Date,
+      Employment_End_Date,
+      Employment_Company_Name,
+      Employment_Company_Address,
+      Employment_Salary,
+      Employment_Position,
+      Employment_Reason_For_Leaving
+    } = req.body;
+  
+    // Check if applicant_id exists
+    const checkApplicantSql = "SELECT * FROM applicant WHERE Applicant_ID = ?";
+    con.query(checkApplicantSql, [Applicant_ID], (err, result) => {
+      if (err) {
+        console.error("Error executing checkApplicantSql:", err);
+        return res.status(500).json({ status: false, error: "Query error" });
+      }
+      if (result.length === 0) {
+        return res.status(400).json({ status: false, error: "Applicant ID does not exist" });
+      }
+  
+      const randomNumber1 = Math.floor(1000 + Math.random() * 9000); // Generates a random number between 1000 and 9999
+      const randomNumber2 = Math.floor(1000 + Math.random() * 9000); // Generates another random number between 1000 and 9999
+      const employmentHistoryId = `EHID-${randomNumber1}-${randomNumber2}`;
+  
+      const sql = "INSERT INTO employment_history (`Employment_History_ID`, `Applicant_ID`, `Employment_Start_Date`, `Employment_End_Date`, `Employment_Company_Name`, `Employment_Company_Address`, `Employment_Salary`, `Employment_Position`, `Employment_Reason_For_Leaving`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+      const values = [employmentHistoryId, Applicant_ID, Employment_Start_Date, Employment_End_Date, Employment_Company_Name, Employment_Company_Address, Employment_Salary, Employment_Position, Employment_Reason_For_Leaving];
+  
+      con.query(sql, values, (err, result) => {
+        if (err) {
+          console.error("Error executing insert query:", err);
+          return res.status(500).json({ status: false, error: "Failed to add employment history" });
+        }
+        return res.json({ status: true, employmentHistoryId });
+      });
+    });
+  });  
+  
+  // GET /auth/get_employments
+  router.get('/get_employments', (req, res) => {
+    const sql = 'SELECT * FROM employment_history';
+  
+    con.query(sql, (err, result) => {
+      if (err) {
+        console.error('Error executing query:', err);
+        return res.status(500).json({ status: 'Error', error: 'Failed to fetch employment history' });
+      }
+      console.log('Fetched employment history successfully:', result);
+      return res.json({ status: 'Success', employment: result });
+    });
+  });
+  
+  // GET /auth/get_employment/:id
+  router.get('/get_employment/:id', (req, res) => {
+    const employmentId = req.params.id;
+    const sql = 'SELECT * FROM employment_history WHERE Employment_History_ID = ?';
+  
+    con.query(sql, [employmentId], (err, result) => {
+      if (err) {
+        console.error('Error executing query:', err);
+        return res.status(500).json({ status: 'Error', error: 'Failed to fetch employment history' });
+      }
+      return res.json({ status: 'Success', employment: result });
+    });
+  });
+  
+  // PUT /auth/edit_employment/:id
+  router.put('/edit_employment/:id', (req, res) => {
+    const employmentId = req.params.id;
+    const {
+      Employment_Start_Date,
+      Employment_End_Date,
+      Employment_Company_Name,
+      Employment_Company_Address,
+      Employment_Salary,
+      Employment_Position,
+      Employment_Reason_For_Leaving
+    } = req.body;
+  
+    const sql = 'UPDATE employment_history SET Employment_Start_Date = ?, Employment_End_Date = ?, Employment_Company_Name = ?, Employment_Company_Address = ?, Employment_Salary = ?, Employment_Position = ?, Employment_Reason_For_Leaving = ? WHERE Employment_History_ID = ?';
+    const values = [Employment_Start_Date, Employment_End_Date, Employment_Company_Name, Employment_Company_Address, Employment_Salary, Employment_Position, Employment_Reason_For_Leaving, employmentId];
+  
+    con.query(sql, values, (err, result) => {
+      if (err) {
+        console.error('Error executing query:', err);
+        return res.status(500).json({ status: 'Error', error: 'Failed to update employment history' });
+      }
+      return res.json({ status: 'Success' });
+    });
+  });
+  
+  // DELETE /auth/delete_employment/:id
+  router.delete('/delete_employment/:id', (req, res) => {
+    const employmentId = req.params.id;
+    const sql = 'DELETE FROM employment_history WHERE Employment_History_ID = ?';
+  
+    con.query(sql, [employmentId], (err, result) => {
+      if (err) {
+        console.error('Error executing query:', err);
+        return res.status(500).json({ status: 'Error', error: 'Failed to delete employment history' });
+      }
+      return res.json({ status: 'Success', result });
+    });
+  });
+  
+
 export { router as adminRouter };

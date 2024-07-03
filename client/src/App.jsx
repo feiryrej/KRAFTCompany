@@ -13,6 +13,8 @@ import AddApplicant from './components/AddApplicant';
 import EditApplicant from './components/EditApplicant';
 import AddEducation from './components/AddEducation';
 import EditEducation from './components/EditEducation';
+import AddEmployment from './components/AddEmployment'
+import EditEmployment from './components/EditEmployment'
 
 function App() {
   return (
@@ -28,8 +30,10 @@ function App() {
           <Route path="/dashboard/reference" element={<Reference />} />
           <Route path="/dashboard/add_applicant" element={<AddApplicant />} />
           <Route path="/dashboard/add_education" element={<AddEducation />} />
+          <Route path="/dashboard/add_employment" element={<AddEmployment />} />
           <Route path="/dashboard/edit_applicant/:id" element={<EditApplicant />} />
           <Route path="/dashboard/edit_education/:id" element={<EditEducation />} />
+          <Route path="/dashboard/edit_employment/:id" element={<EditEmployment />} />
         </Route>
       </Routes>
     </BrowserRouter>
