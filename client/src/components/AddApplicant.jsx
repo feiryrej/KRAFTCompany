@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const AddApplicant = () => {
@@ -12,6 +12,7 @@ const AddApplicant = () => {
     });
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -35,6 +36,8 @@ const AddApplicant = () => {
                     Phone_No: '',
                     Email: ''
                 });
+                // Navigate to the applicant list page after success
+                navigate('/dashboard/applicant');
             } else {
                 setError('Failed to add applicant.');
                 setSuccess('');

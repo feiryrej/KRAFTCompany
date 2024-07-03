@@ -27,9 +27,9 @@ router.post("/adminlogin", (req, res) => {
 });
 
 router.post('/add_applicant', (req, res) => {
-    const randomNumber = Math.floor(1000 + Math.random() * 9000); // Generates a random number between 1000 and 9999
-    const randomString = Math.random().toString(36).substring(2, 6); // Generates a 4-character random string
-    const applicantId = `DLG-${randomNumber}-${randomString}`;    
+    const randomNumber1 = Math.floor(1000 + Math.random() * 9000); // Generates a random number between 1000 and 9999
+    const randomNumber2 = Math.floor(1000 + Math.random() * 9000); // Generates another random number between 1000 and 9999
+    const applicantId = `DLG-${randomNumber1}-${randomNumber2}`;    
 
     const sql = "INSERT INTO applicant (`applicant_id`, `name`, `SSS_Number`, `Address`, `Phone_No`, `Email`) VALUES (?, ?, ?, ?, ?, ?)";
     const values = [
@@ -53,6 +53,7 @@ router.post('/add_applicant', (req, res) => {
         return res.json({ status: true, applicantId: applicantId });
     });
 });
+
 
 router.get('/get_applicants', (req, res) => {
     const sql = 'SELECT Applicant_ID, Name, SSS_number, Address, Phone_No, Email FROM applicant';

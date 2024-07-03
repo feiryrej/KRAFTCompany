@@ -4,12 +4,22 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Applicant = () => {
   const [applicants, setApplicants] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredApplicants, setFilteredApplicants] = useState([]);
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
     fetchApplicants();
   }, []);
+
+  useEffect(() => {
+    setFilteredApplicants(
+      applicants.filter((applicant) =>
+        applicant.Applicant_ID.toString().includes(searchTerm)
+      )
+    );
+  }, [searchTerm, applicants]);
 
   const fetchApplicants = async () => {
     try {
@@ -35,7 +45,7 @@ const Applicant = () => {
       }
 
       const response = await axios.delete(
-        `http://localhost:3000/auth/delete_applicant/${id}`
+        `http://localhost:3000/auth/auth/delete_applicant/${id}`
       );
       if (response.status === 200) {
         fetchApplicants();
@@ -74,6 +84,15 @@ const Applicant = () => {
         </Link>
       </div>
       {error && <div className="alert alert-danger">{error}</div>}
+      <div className="mb-3">
+        <input
+          type="text"
+          placeholder="Search by Applicant ID"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="form-control"
+        />
+      </div>
       <div className="table-responsive">
         <table className="table table-striped">
           <thead>
@@ -88,7 +107,7 @@ const Applicant = () => {
             </tr>
           </thead>
           <tbody>
-            {applicants.map((applicant) => (
+            {filteredApplicants.map((applicant) => (
               <tr key={applicant.Applicant_ID}>
                 <td>{applicant.Applicant_ID}</td>
                 <td>{applicant.Name}</td>

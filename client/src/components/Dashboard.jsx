@@ -2,6 +2,7 @@ import React from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import './style.css'
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -103,7 +104,7 @@ const Dashboard = () => {
         </div>
         <div className="col p-0 m-0">
           <div className="p-2 d-flex justify-content-center shadow">
-            <h4>Employee Management System</h4>
+            <h4>Applicant Management System</h4>
           </div>
           <Outlet />
         </div>
