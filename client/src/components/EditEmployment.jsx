@@ -16,24 +16,35 @@ const EditEmployment = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:3000/auth/employment/${id}`)
-      .then((result) => {
-        setEmployment({
-          Employment_Start_Date: result.data.employment[0].Employment_Start_Date,
-          Employment_End_Date: result.data.employment[0].Employment_End_Date,
-          Employment_Company_Name: result.data.employment[0].Employment_Company_Name,
-          Employment_Company_Address: result.data.employment[0].Employment_Company_Address,
-          Employment_Salary: result.data.employment[0].Employment_Salary,
-          Employment_Position: result.data.employment[0].Employment_Position,
-          Employment_Reason_For_Leaving: result.data.employment[0].Employment_Reason_For_Leaving
-        });
-      })
-      .catch((err) => console.log(err));
+    const fetchEmployment = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3000/auth/get_employment/${id}`);
+        const { data } = response;
+        if (data.status === "Success") {
+          const fetchedEmployment = data.employment[0];
+          setEmployment({
+            Employment_Start_Date: fetchedEmployment.Employment_Start_Date ? new Date(fetchedEmployment.Employment_Start_Date).toISOString().split('T')[0] : '',
+            Employment_End_Date: fetchedEmployment.Employment_End_Date ? new Date(fetchedEmployment.Employment_End_Date).toISOString().split('T')[0] : '',
+            Employment_Company_Name: fetchedEmployment.Employment_Company_Name,
+            Employment_Company_Address: fetchedEmployment.Employment_Company_Address,
+            Employment_Salary: fetchedEmployment.Employment_Salary,
+            Employment_Position: fetchedEmployment.Employment_Position,
+            Employment_Reason_For_Leaving: fetchedEmployment.Employment_Reason_For_Leaving
+          });
+        } else {
+          console.error("Failed to fetch employment:", data.error);
+        }
+      } catch (error) {
+        console.error("Error fetching employment:", error);
+      }
+    };
+
+    fetchEmployment();
   }, [id]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    e.target.Employment_End_Date = null
     axios
       .put(`http://localhost:3000/auth/edit_employment/${id}`, employment)
       .then((result) => {
