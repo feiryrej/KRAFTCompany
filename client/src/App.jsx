@@ -15,6 +15,8 @@ import AddEducation from './components/AddEducation';
 import EditEducation from './components/EditEducation';
 import AddEmployment from './components/AddEmployment'
 import EditEmployment from './components/EditEmployment'
+import AddApplication from './components/AddApplication';
+import EditApplication from './components/EditApplication';
 
 function App() {
   return (
@@ -31,9 +33,11 @@ function App() {
           <Route path="/dashboard/add_applicant" element={<AddApplicant />} />
           <Route path="/dashboard/add_education" element={<AddEducation />} />
           <Route path="/dashboard/add_employment" element={<AddEmployment />} />
+          <Route path="/dashboard/add_application" element={<AddApplication />} />
           <Route path="/dashboard/edit_applicant/:id" element={<EditApplicant />} />
           <Route path="/dashboard/edit_education/:id" element={<EditEducation />} />
           <Route path="/dashboard/edit_employment/:id" element={<EditEmployment />} />
+          <Route path="/dashboard/edit_application/:id" element={<EditApplication />} />
         </Route>
       </Routes>
     </BrowserRouter>

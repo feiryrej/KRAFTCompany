@@ -303,30 +303,55 @@ router.post('/add_employment', (req, res) => {
     });
   });
   
-  // PUT /auth/edit_employment/:id
-  router.put('/edit_employment/:id', (req, res) => {
-    const employmentId = req.params.id;
+  // PUT /auth/edit_application/:id - Update a job application
+router.put('/edit_application/:id', (req, res) => {
+    const Application_ID = req.params.id;
     const {
-      Employment_Start_Date,
-      Employment_End_Date,
-      Employment_Company_Name,
-      Employment_Company_Address,
-      Employment_Salary,
-      Employment_Position,
-      Employment_Reason_For_Leaving
+      Applicant_ID,
+      Position,
+      Date_of_Application,
+      Date_can_Start,
+      Salary_Desired,
+      is_Currently_Employed,
+      can_Inquire_Current_Employer,
+      has_Applied_Before,
+      Applied_Before_Where,
+      Applied_Before_When,
+      Special_Study_Subject,
+      Special_Training,
+      Special_Skills
     } = req.body;
   
-    const sql = 'UPDATE employment_history SET Employment_Start_Date = ?, Employment_End_Date = ?, Employment_Company_Name = ?, Employment_Company_Address = ?, Employment_Salary = ?, Employment_Position = ?, Employment_Reason_For_Leaving = ? WHERE Employment_History_ID = ?';
-    const values = [Employment_Start_Date, Employment_End_Date, Employment_Company_Name, Employment_Company_Address, Employment_Salary, Employment_Position, Employment_Reason_For_Leaving, employmentId];
+    console.log('Updating Application:', Application_ID, req.body);
+  
+    const sql = `UPDATE job_application SET Applicant_ID = ?, Position = ?, Date_of_Application = ?, Date_can_Start = ?, Salary_Desired = ?, is_Currently_Employed = ?, can_Inquire_Current_Employer = ?, has_Applied_Before = ?, Applied_Before_Where = ?, Applied_Before_When = ?, Special_Study_Subject = ?, Special_Training = ?, Special_Skills = ? WHERE Application_ID = ?`;
+  
+    const values = [
+      Applicant_ID,
+      Position,
+      Date_of_Application,
+      Date_can_Start,
+      Salary_Desired,
+      is_Currently_Employed,
+      can_Inquire_Current_Employer,
+      has_Applied_Before,
+      Applied_Before_Where,
+      Applied_Before_When,
+      Special_Study_Subject,
+      Special_Training,
+      Special_Skills,
+      Application_ID
+    ];
   
     con.query(sql, values, (err, result) => {
       if (err) {
-        console.error('Error executing query:', err);
-        return res.status(500).json({ status: 'Error', error: 'Failed to update employment history' });
+        console.error('Error executing update query:', err);
+        return res.status(500).json({ status: 'Error', error: 'Failed to update job application' });
       }
       return res.json({ status: 'Success' });
     });
   });
+  
   
   // DELETE /auth/delete_employment/:id
   router.delete('/delete_employment/:id', (req, res) => {
@@ -342,5 +367,136 @@ router.post('/add_employment', (req, res) => {
     });
   });
   
+  // GET /auth/get_applications - Fetch all job applications
+router.get('/get_application', (req, res) => {
+    const sql = 'SELECT * FROM job_application';
+    con.query(sql, (err, result) => {
+      if (err) {
+        console.error('Error executing query:', err);
+        return res.status(500).json({ status: 'Error', error: 'Failed to fetch job applications' });
+      }
+      return res.json({ status: 'Success', applications: result });
+    });
+  });
+  
+  // POST /auth/add_application - Add a new job application
+router.post('/add_application', (req, res) => {
+    const {
+      Applicant_ID,
+      Position,
+      Date_of_Application,
+      Date_can_Start,
+      Salary_Desired,
+      is_Currently_Employed,
+      can_Inquire_Current_Employer,
+      has_Applied_Before,
+      Applied_Before_Where,
+      Applied_Before_When,
+      Special_Study_Subject,
+      Special_Training,
+      Special_Skills
+    } = req.body;
+  
+    const Application_ID = `AID-${Math.floor(1000 + Math.random() * 9000)}-${Math.floor(1000 + Math.random() * 9000)}`;
+  
+    const sql = `INSERT INTO job_application (Application_ID, Applicant_ID, Position, Date_of_Application, Date_can_Start, Salary_Desired, is_Currently_Employed, can_Inquire_Current_Employer, has_Applied_Before, Applied_Before_Where, Applied_Before_When, Special_Study_Subject, Special_Training, Special_Skills) 
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+    const values = [
+      Application_ID,
+      Applicant_ID,
+      Position,
+      Date_of_Application,
+      Date_can_Start,
+      Salary_Desired,
+      is_Currently_Employed,
+      can_Inquire_Current_Employer,
+      has_Applied_Before,
+      Applied_Before_Where || null,
+      Applied_Before_When || null,
+      Special_Study_Subject || null,
+      Special_Training || null,
+      Special_Skills || null
+    ];
+  
+    con.query(sql, values, (err, result) => {
+      if (err) {
+        console.error('Error executing insert query:', err);
+        return res.status(500).json({ status: 'Error', error: 'Failed to add job application' });
+      }
+      return res.json({ status: 'Success', Application_ID });
+    });
+  });
+  
+  // DELETE /auth/delete_application/:id - Delete a job application
+  router.delete('/delete_application/:id', (req, res) => {
+    const Application_ID = req.params.id;
+    const sql = 'DELETE FROM job_application WHERE Application_ID = ?';
+    con.query(sql, [Application_ID], (err, result) => {
+      if (err) {
+        console.error('Error executing delete query:', err);
+        return res.status(500).json({ status: 'Error', error: 'Failed to delete job application' });
+      }
+      return res.json({ status: 'Success' });
+    });
+  });
+  
+  // GET /auth/application/:id - Fetch a specific job application by ID
+  router.get('/application/:id', (req, res) => {
+    const Application_ID = req.params.id;
+    const sql = 'SELECT * FROM job_application WHERE Application_ID = ?';
+    con.query(sql, [Application_ID], (err, result) => {
+      if (err) {
+        console.error('Error executing query:', err);
+        return res.status(500).json({ status: 'Error', error: 'Failed to fetch job application' });
+      }
+      return res.json({ status: 'Success', application: result });
+    });
+  });
+  
+  // PUT /auth/edit_application/:id - Update a job application
+  router.put('/edit_application/:id', (req, res) => {
+    const Application_ID = req.params.id;
+    const {
+      Applicant_ID,
+      Position,
+      Date_of_Application,
+      Date_can_Start,
+      Salary_Desired,
+      is_Currently_Employed,
+      can_Inquire_Current_Employer,
+      has_Applied_Before,
+      Applied_Before_Where,
+      Applied_Before_When,
+      Special_Study_Subject,
+      Special_Training,
+      Special_Skills
+    } = req.body;
+  
+    const sql = `UPDATE job_application SET Applicant_ID = ?, Position = ?, Date_of_Application = ?, Date_can_Start = ?, Salary_Desired = ?, is_Currently_Employed = ?, can_Inquire_Current_Employer = ?, has_Applied_Before = ?, Applied_Before_Where = ?, Applied_Before_When = ?, Special_Study_Subject = ?, Special_Training = ?, Special_Skills = ? WHERE Application_ID = ?`;
+    const values = [
+      Applicant_ID,
+      Position,
+      Date_of_Application,
+      Date_can_Start,
+      Salary_Desired,
+      is_Currently_Employed,
+      can_Inquire_Current_Employer,
+      has_Applied_Before,
+      Applied_Before_Where,
+      Applied_Before_When,
+      Special_Study_Subject,
+      Special_Training,
+      Special_Skills,
+      Application_ID
+    ];
+  
+    con.query(sql, values, (err, result) => {
+      if (err) {
+        console.error('Error executing update query:', err);
+        return res.status(500).json({ status: 'Error', error: 'Failed to update job application' });
+      }
+      return res.json({ status: 'Success' });
+    });
+  });
 
 export { router as adminRouter };
