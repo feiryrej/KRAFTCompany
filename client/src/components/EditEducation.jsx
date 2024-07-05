@@ -9,7 +9,7 @@ const EditEducation = () => {
     Education_Level: "",
     Education_Location: "",
     Education_Years: "",
-    has_Graduated: "",
+    has_Graduated: "", // This will be a string "true" or "false"
     Education_Subjects: ""
   });
   const navigate = useNavigate();
@@ -18,12 +18,13 @@ const EditEducation = () => {
     axios
       .get(`http://localhost:3000/auth/education/${id}`)
       .then((result) => {
+        console.log('Fetched Education:', result.data);
         setEducation({
           Education_School_Name: result.data.education[0].Education_School_Name,
           Education_Level: result.data.education[0].Education_Level,
           Education_Location: result.data.education[0].Education_Location,
           Education_Years: result.data.education[0].Education_Years,
-          has_Graduated: result.data.education[0].has_Graduated,
+          has_Graduated: result.data.education[0].has_Graduated ? "true" : "false",
           Education_Subjects: result.data.education[0].Education_Subjects
         });
       })
@@ -33,7 +34,10 @@ const EditEducation = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .put(`http://localhost:3000/auth/edit_education/${id}`, education)
+      .put(`http://localhost:3000/auth/edit_education/${id}`, {
+        ...education,
+        has_Graduated: education.has_Graduated === "true"
+      })
       .then((result) => {
         if (result.data.status === "Success") {
           navigate("/dashboard/education");
@@ -117,17 +121,18 @@ const EditEducation = () => {
             <label htmlFor="inputGraduated" className="form-label">
               Graduated (Yes/No)
             </label>
-            <input
-              type="text"
-              className="form-control rounded-0"
+            <select
+              className="form-control"
               id="inputGraduated"
-              placeholder="Enter Graduated Status"
               value={education.has_Graduated}
               onChange={(e) =>
                 setEducation({ ...education, has_Graduated: e.target.value })
               }
-              autoComplete="off"
-            />
+              required
+            >
+              <option value="false">No</option>
+              <option value="true">Yes</option>
+            </select>
           </div>
           <div className="col-12">
             <label htmlFor="inputSubjects" className="form-label">

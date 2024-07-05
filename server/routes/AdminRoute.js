@@ -107,17 +107,37 @@ router.put("/edit_applicant/:id", (req, res) => {
   });
 });
 
-router.delete("/auth/delete_applicant/:id", (req, res) => {
+router.delete("/auth/delete_applicant/:id", async (req, res) => {
   const id = req.params.id;
-  const sql = "DELETE FROM applicant WHERE Applicant_ID = ?";
-  con.query(sql, [id], (err, result) => {
-    if (err) {
-      console.error("Query Error:", err);
-      return res.json({ status: false, error: "Failed to delete applicant" });
-    }
-    return res.json({ status: true, result });
-  });
+  try {
+    await Promise.all([
+      deleteFromTable("applicant", id),
+      deleteFromTable("job_application", id),
+      deleteFromTable("education_history", id),
+      deleteFromTable("employment_history", id),
+      deleteFromTable("reference", id),
+    ]);
+    res.json({ status: true, message: "Applicant and related records deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting applicant and related records:", error);
+    res.status(500).json({ status: false, error: "Failed to delete applicant and related records" });
+  }
 });
+
+async function deleteFromTable(tableName, id) {
+  return new Promise((resolve, reject) => {
+    const sql = `DELETE FROM ${tableName} WHERE Applicant_ID = ?`;
+    con.query(sql, [id], (err, result) => {
+      if (err) {
+        console.error(`Error deleting from ${tableName}:`, err);
+        reject(err);
+      } else {
+        resolve(result);
+      }
+    });
+  });
+}
+
 
 router.get("/admin_count", (req, res) => {
   const sql = "SELECT COUNT(id) AS admin FROM admin";
@@ -157,8 +177,6 @@ router.get("/logout", (req, res) => {
   return res.json({ Status: true });
 });
 
-// Education History Routes
-
 router.post("/add_education", (req, res) => {
   const randomNumber1 = Math.floor(1000 + Math.random() * 9000); // Generates a random number between 1000 and 9999
   const randomNumber2 = Math.floor(1000 + Math.random() * 9000); // Generates another random number between 1000 and 9999
@@ -187,7 +205,7 @@ router.post("/add_education", (req, res) => {
     }
 
     const sql =
-      "INSERT INTO education_history (`Education_History_ID`, `Applicant_ID`, `Education_School_Name`, `Education_Level`, `Education_Location`, `Education_Years`, `has_Graduated`, `Education_Subjects`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+      "INSERT INTO education_history (Education_History_ID, Applicant_ID, Education_School_Name, Education_Level, Education_Location, Education_Years, has_Graduated, Education_Subjects) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     const values = [
       educationHistoryId,
       Applicant_ID,
@@ -202,7 +220,7 @@ router.post("/add_education", (req, res) => {
     con.query(sql, values, (err, result) => {
       if (err) {
         console.error("Error executing query:", err);
-        return res.status(500).json({ status: false, error: "Query error" });
+        return res.status(500).json({ status: false, error: "Query error: " + err.message });
       }
       return res.json({ status: true, educationHistoryId: educationHistoryId });
     });
@@ -482,12 +500,10 @@ router.post("/add_application", (req, res) => {
     Special_Skills,
   } = req.body;
 
-  const Application_ID = `AID-${Math.floor(
-    1000 + Math.random() * 9000
-  )}-${Math.floor(1000 + Math.random() * 9000)}`;
+  const Application_ID = `AID-${Math.floor(1000 + Math.random() * 9000)}-${Math.floor(1000 + Math.random() * 9000)}`;
 
   const sql = `INSERT INTO job_application (Application_ID, Applicant_ID, Position, Date_of_Application, Date_can_Start, Salary_Desired, is_Currently_Employed, can_Inquire_Current_Employer, has_Applied_Before, Applied_Before_Where, Applied_Before_When, Special_Study_Subject, Special_Training, Special_Skills) 
-                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
   const values = [
     Application_ID,
     Applicant_ID,
@@ -515,6 +531,7 @@ router.post("/add_application", (req, res) => {
     return res.json({ status: "Success", Application_ID });
   });
 });
+
 
 // DELETE /auth/delete_application/:id - Delete a job application
 router.delete("/delete_application/:id", (req, res) => {

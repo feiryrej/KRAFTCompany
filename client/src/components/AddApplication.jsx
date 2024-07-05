@@ -11,7 +11,7 @@ const AddApplication = () => {
     Date_can_Start: '',
     Salary_Desired: '',
     is_Currently_Employed: false,
-    can_Inquire_Current_Employer: false, // Set default value to false
+    can_Inquire_Current_Employer: false,
     has_Applied_Before: false,
     Applied_Before_Where: '',
     Applied_Before_When: '',
@@ -45,6 +45,14 @@ const AddApplication = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Ensure Salary_Desired is numeric
+    const salaryDesiredNumeric = parseFloat(application.Salary_Desired.replace(/,/g, ''));
+    if (isNaN(salaryDesiredNumeric)) {
+      setError('Salary Desired must be a numeric value.');
+      setSuccess('');
+      return;
+    }
+
     // Check if Applicant ID exists
     if (!applicants.some(applicant => applicant.Applicant_ID === application.Applicant_ID)) {
       setError('Applicant ID does not exist.');
@@ -53,8 +61,9 @@ const AddApplication = () => {
     }
 
     try {
-      console.log("Submitting application: ", application); // Debug log
-      const response = await axios.post('http://localhost:3000/auth/add_application', application);
+      const applicationData = { ...application, Salary_Desired: salaryDesiredNumeric };
+      console.log("Submitting application: ", applicationData); // Debug log
+      const response = await axios.post('http://localhost:3000/auth/add_application', applicationData);
       if (response.data.status === 'Success') {
         setError('');
         setSuccess('Application successfully added.');
