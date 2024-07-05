@@ -2,7 +2,6 @@ import React from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import './style.css'
 
 const Dashboard = () => {
   const navigate = useNavigate();
