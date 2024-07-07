@@ -64,42 +64,42 @@ const AddEducation = () => {
   };
 
   return (
-    <div className='px-5 mt-3'>
+    <div className='floating-panel'>
       <div className='d-flex justify-content-center'>
-        <h3>Add Education History</h3>
+        <h3 style={{ color: 'white' }}>Add Education History</h3>
       </div>
       <form className='d-flex flex-column align-items-center mt-3' onSubmit={handleSubmit}>
         {error && <div className="alert alert-danger w-50" role="alert">{error}</div>}
         {success && <div className="alert alert-success w-50" role="alert">{success}</div>}
         <div className="mb-3 w-50">
-          <label htmlFor="Applicant_ID" className="form-label">Applicant ID</label>
+          <label htmlFor="Applicant_ID" className="form-label" style={{ color: 'white' }}>Applicant ID</label>
           <input type="text" className="form-control" id="Applicant_ID" value={education.Applicant_ID} onChange={(e) => setEducation({...education, Applicant_ID: e.target.value})} required />
         </div>
         <div className="mb-3 w-50">
-          <label htmlFor="Education_School_Name" className="form-label">School Name</label>
+          <label htmlFor="Education_School_Name" className="form-label" style={{ color: 'white' }}>School Name</label>
           <input type="text" className="form-control" id="Education_School_Name" value={education.Education_School_Name} onChange={(e) => setEducation({...education, Education_School_Name: e.target.value})} required />
         </div>
         <div className="mb-3 w-50">
-          <label htmlFor="Education_Level" className="form-label">Education Level</label>
+          <label htmlFor="Education_Level" className="form-label" style={{ color: 'white' }}>Education Level</label>
           <input type="text" className="form-control" id="Education_Level" value={education.Education_Level} onChange={(e) => setEducation({...education, Education_Level: e.target.value})} required />
         </div>
         <div className="mb-3 w-50">
-          <label htmlFor="Education_Location" className="form-label">Location</label>
+          <label htmlFor="Education_Location" className="form-label" style={{ color: 'white' }}>Location</label>
           <input type="text" className="form-control" id="Education_Location" value={education.Education_Location} onChange={(e) => setEducation({...education, Education_Location: e.target.value})} required />
         </div>
         <div className="mb-3 w-50">
-          <label htmlFor="Education_Years" className="form-label">Years</label>
+          <label htmlFor="Education_Years" className="form-label" style={{ color: 'white' }}>Years</label>
           <input type="text" className="form-control" id="Education_Years" value={education.Education_Years} onChange={(e) => setEducation({...education, Education_Years: e.target.value})} required />
         </div>
         <div className="mb-3 w-50">
-          <label htmlFor="has_Graduated" className="form-label">Graduated</label>
+          <label htmlFor="has_Graduated" className="form-label" style={{ color: 'white' }}>Graduated</label>
           <select className="form-control" id="has_Graduated" value={education.has_Graduated} onChange={(e) => setEducation({...education, has_Graduated: e.target.value === 'true'})} required>
             <option value={false}>No</option>
             <option value={true}>Yes</option>
           </select>
         </div>
         <div className="mb-3 w-50">
-          <label htmlFor="Education_Subjects" className="form-label">Subjects</label>
+          <label htmlFor="Education_Subjects" className="form-label" style={{ color: 'white' }}>Subjects</label>
           <input type="text" className="form-control" id="Education_Subjects" value={education.Education_Subjects} onChange={(e) => setEducation({...education, Education_Subjects: e.target.value})} required />
         </div>
         <div className='d-flex justify-content-center w-50'>

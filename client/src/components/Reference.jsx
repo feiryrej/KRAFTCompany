@@ -80,9 +80,9 @@ const Reference = () => {
   };
 
   return (
-    <div className="px-5 mt-3">
+    <div className="floating-panel">
       <div className="d-flex justify-content-between align-items-center mb-3">
-        <h3>Reference History</h3>
+        <h3 style={{ color: 'white' }}>Reference History</h3>
         <div>
           <Link to="/dashboard/add_reference" className="btn btn-success">
             Add Reference
@@ -100,7 +100,7 @@ const Reference = () => {
         />
       </div>
       <div className="table-responsive">
-        <table className="table table-striped">
+        <table className="table table-striped table-dark">
           <thead>
             <tr>
               <th>ID</th>

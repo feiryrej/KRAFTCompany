@@ -65,43 +65,43 @@ const AddEmployment = () => {
   };
 
   return (
-    <div className='px-5 mt-3'>
+    <div className='floating-panel'>
       <div className='d-flex justify-content-center'>
-        <h3>Add Employment History</h3>
+        <h3 style={{ color: 'white' }}>Add Employment History</h3>
       </div>
       <form className='d-flex flex-column align-items-center mt-3' onSubmit={handleSubmit}>
         {error && <div className="alert alert-danger w-50" role="alert">{error}</div>}
         {success && <div className="alert alert-success w-50" role="alert">{success}</div>}
         <div className="mb-3 w-50">
-          <label htmlFor="Applicant_ID" className="form-label">Applicant ID</label>
+          <label htmlFor="Applicant_ID" className="form-label" style={{ color: 'white' }}>Applicant ID</label>
           <input type="text" className="form-control" id="Applicant_ID" value={employment.Applicant_ID} onChange={(e) => setEmployment({...employment, Applicant_ID: e.target.value})} required />
         </div>
         <div className="mb-3 w-50">
-          <label htmlFor="Employment_Start_Date" className="form-label">Start Date</label>
+          <label htmlFor="Employment_Start_Date" className="form-label" style={{ color: 'white' }}>Start Date</label>
           <input type="date" className="form-control" id="Employment_Start_Date" value={employment.Employment_Start_Date} onChange={(e) => setEmployment({...employment, Employment_Start_Date: e.target.value})} required />
         </div>
         <div className="mb-3 w-50">
-          <label htmlFor="Employment_End_Date" className="form-label">End Date</label>
+          <label htmlFor="Employment_End_Date" className="form-label" style={{ color: 'white' }}>End Date</label>
           <input type="date" className="form-control" id="Employment_End_Date" value={employment.Employment_End_Date || ''} onChange={(e) => setEmployment({...employment, Employment_End_Date: e.target.value || null})} />
         </div>
         <div className="mb-3 w-50">
-          <label htmlFor="Employment_Company_Name" className="form-label">Company Name</label>
+          <label htmlFor="Employment_Company_Name" className="form-label" style={{ color: 'white' }}>Company Name</label>
           <input type="text" className="form-control" id="Employment_Company_Name" value={employment.Employment_Company_Name} onChange={(e) => setEmployment({...employment, Employment_Company_Name: e.target.value})} required />
         </div>
         <div className="mb-3 w-50">
-          <label htmlFor="Employment_Company_Address" className="form-label">Company Address</label>
+          <label htmlFor="Employment_Company_Address" className="form-label" style={{ color: 'white' }}>Company Address</label>
           <input type="text" className="form-control" id="Employment_Company_Address" value={employment.Employment_Company_Address} onChange={(e) => setEmployment({...employment, Employment_Company_Address: e.target.value})} required />
         </div>
         <div className="mb-3 w-50">
-          <label htmlFor="Employment_Salary" className="form-label">Salary</label>
+          <label htmlFor="Employment_Salary" className="form-label" style={{ color: 'white' }}>Salary</label>
           <input type="text" className="form-control" id="Employment_Salary" value={employment.Employment_Salary} onChange={(e) => setEmployment({...employment, Employment_Salary: e.target.value})} required />
         </div>
         <div className="mb-3 w-50">
-          <label htmlFor="Employment_Position" className="form-label">Position</label>
+          <label htmlFor="Employment_Position" className="form-label" style={{ color: 'white' }}>Position</label>
           <input type="text" className="form-control" id="Employment_Position" value={employment.Employment_Position} onChange={(e) => setEmployment({...employment, Employment_Position: e.target.value})} required />
         </div>
         <div className="mb-3 w-50">
-          <label htmlFor="Employment_Reason_For_Leaving" className="form-label">Reason for Leaving</label>
+          <label htmlFor="Employment_Reason_For_Leaving" className="form-label" style={{ color: 'white' }}>Reason for Leaving</label>
           <input type="text" className="form-control" id="Employment_Reason_For_Leaving" value={employment.Employment_Reason_For_Leaving} onChange={(e) => setEmployment({...employment, Employment_Reason_For_Leaving: e.target.value})} />
         </div>
         <div className='d-flex justify-content-center w-50'>

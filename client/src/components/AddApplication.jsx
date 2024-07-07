@@ -80,36 +80,36 @@ const AddApplication = () => {
   };
 
   return (
-    <div className='px-5 mt-3'>
+    <div className='floating-panel'>
       <div className='d-flex justify-content-center'>
-        <h3>Add Application</h3>
+        <h3 style={{ color: 'white' }}>Add Application</h3>
       </div>
       <form className='d-flex flex-column align-items-center mt-3' onSubmit={handleSubmit}>
         {error && <div className="alert alert-danger w-50" role="alert">{error}</div>}
         {success && <div className="alert alert-success w-50" role="alert">{success}</div>}
         <div className="mb-3 w-50">
-          <label htmlFor="Applicant_ID" className="form-label">Applicant ID</label>
+          <label htmlFor="Applicant_ID" className="form-label" style={{ color: 'white' }}>Applicant ID</label>
           <input type="text" className="form-control" id="Applicant_ID" value={application.Applicant_ID} onChange={(e) => setApplication({...application, Applicant_ID: e.target.value})} required />
         </div>
         <div className="mb-3 w-50">
-          <label htmlFor="Position" className="form-label">Position</label>
+          <label htmlFor="Position" className="form-label" style={{ color: 'white' }}>Position</label>
           <input type="text" className="form-control" id="Position" value={application.Position} onChange={(e) => setApplication({...application, Position: e.target.value})} required />
         </div>
         <div className="mb-3 w-50">
-          <label htmlFor="Date_of_Application" className="form-label">Date of Application</label>
+          <label htmlFor="Date_of_Application" className="form-label" style={{ color: 'white' }}>Date of Application</label>
           <input type="date" className="form-control" id="Date_of_Application" value={application.Date_of_Application} onChange={(e) => setApplication({...application, Date_of_Application: e.target.value})} required />
         </div>
         <div className="mb-3 w-50">
-          <label htmlFor="Date_can_Start" className="form-label">Date can Start</label>
+          <label htmlFor="Date_can_Start" className="form-label" style={{ color: 'white' }}>Date can Start</label>
           <input type="date" className="form-control" id="Date_can_Start" value={application.Date_can_Start} onChange={(e) => setApplication({...application, Date_can_Start: e.target.value})} required />
         </div>
         <div className="mb-3 w-50">
-          <label htmlFor="Salary_Desired" className="form-label">Salary Desired</label>
+          <label htmlFor="Salary_Desired" className="form-label" style={{ color: 'white' }}>Salary Desired</label>
           <input type="text" className="form-control" id="Salary_Desired" value={application.Salary_Desired} onChange={(e) => setApplication({...application, Salary_Desired: e.target.value})} required />
         </div>
         <div className="mb-3 form-check w-50">
           <input type="checkbox" className="form-check-input" id="is_Currently_Employed" checked={application.is_Currently_Employed} onChange={(e) => setApplication({...application, is_Currently_Employed: e.target.checked})} />
-          <label className="form-check-label" htmlFor="is_Currently_Employed">Currently Employed</label>
+          <label className="form-check-label" htmlFor="is_Currently_Employed" style={{ color: 'white' }}>Currently Employed</label>
         </div>
         <div className="mb-3 form-check w-50">
           <input
@@ -119,34 +119,34 @@ const AddApplication = () => {
             checked={application.can_Inquire_Current_Employer || false} // Default to false if null
             onChange={(e) => setApplication({ ...application, can_Inquire_Current_Employer: e.target.checked })}
           />
-          <label className="form-check-label" htmlFor="can_Inquire_Current_Employer">Can Inquire Current Employer</label>
+          <label className="form-check-label" htmlFor="can_Inquire_Current_Employer" style={{ color: 'white' }}>Can Inquire Current Employer</label>
         </div>
         <div className="mb-3 form-check w-50">
           <input type="checkbox" className="form-check-input" id="has_Applied_Before" checked={application.has_Applied_Before} onChange={(e) => setApplication({...application, has_Applied_Before: e.target.checked})} />
-          <label className="form-check-label" htmlFor="has_Applied_Before">Applied Before</label>
+          <label className="form-check-label" htmlFor="has_Applied_Before" style={{ color: 'white' }}>Applied Before</label>
         </div>
         {application.has_Applied_Before && (
           <>
             <div className="mb-3 w-50">
-              <label htmlFor="Applied_Before_Where" className="form-label">Where Applied Before</label>
+              <label htmlFor="Applied_Before_Where" className="form-label" style={{ color: 'white' }}>Where Applied Before</label>
               <input type="text" className="form-control" id="Applied_Before_Where" value={application.Applied_Before_Where} onChange={(e) => setApplication({...application, Applied_Before_Where: e.target.value})} />
             </div>
             <div className="mb-3 w-50">
-              <label htmlFor="Applied_Before_When" className="form-label">When Applied Before</label>
+              <label htmlFor="Applied_Before_When" className="form-label" style={{ color: 'white' }}>When Applied Before</label>
               <input type="date" className="form-control" id="Applied_Before_When" value={application.Applied_Before_When} onChange={(e) => setApplication({...application, Applied_Before_When: e.target.value})} />
             </div>
           </>
         )}
         <div className="mb-3 w-50">
-          <label htmlFor="Special_Study_Subject" className="form-label">Special Study Subject</label>
+          <label htmlFor="Special_Study_Subject" className="form-label" style={{ color: 'white' }}>Special Study Subject</label>
           <input type="text" className="form-control" id="Special_Study_Subject" value={application.Special_Study_Subject} onChange={(e) => setApplication({...application, Special_Study_Subject: e.target.value})} />
         </div>
         <div className="mb-3 w-50">
-          <label htmlFor="Special_Training" className="form-label">Special Training</label>
+          <label htmlFor="Special_Training" className="form-label" style={{ color: 'white' }}>Special Training</label>
           <input type="text" className="form-control" id="Special_Training" value={application.Special_Training} onChange={(e) => setApplication({...application, Special_Training: e.target.value})} />
         </div>
         <div className="mb-3 w-50">
-          <label htmlFor="Special_Skills" className="form-label">Special Skills</label>
+          <label htmlFor="Special_Skills" className="form-label" style={{ color: 'white' }}>Special Skills</label>
           <input type="text" className="form-control" id="Special_Skills" value={application.Special_Skills} onChange={(e) => setApplication({...application, Special_Skills: e.target.value})} />
         </div>
         <div className='d-flex justify-content-center w-50'>

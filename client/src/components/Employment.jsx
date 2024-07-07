@@ -92,9 +92,9 @@ const Employment = () => {
   };
 
   return (
-    <div className="px-5 mt-3">
+    <div className="floating-panel">
       <div className="d-flex justify-content-between align-items-center mb-3">
-        <h3>Employment History</h3>
+        <h3 style={{ color: 'white' }}>Employment History</h3>
         <Link to="/dashboard/add_employment" className="btn btn-success">
           Add Employment History
         </Link>
@@ -110,7 +110,7 @@ const Employment = () => {
         />
       </div>
       <div className="table-responsive">
-        <table className="table table-striped">
+        <table className="table table-striped table-dark">
           <thead>
             <tr>
               <th>ID</th>

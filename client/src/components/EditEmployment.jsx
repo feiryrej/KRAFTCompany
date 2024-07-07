@@ -58,8 +58,8 @@ const EditEmployment = () => {
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center mt-3">
-      <div className="p-3 rounded w-50 border">
+    <div className="floating-panel d-flex justify-content-center align-items-center mt-3 text-white">
+      <div className="p-3 rounded w-50">
         <h3 className="text-center">Edit Employment</h3>
         <form className="row g-1" onSubmit={handleSubmit}>
           <div className="col-12">

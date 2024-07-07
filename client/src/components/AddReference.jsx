@@ -62,31 +62,31 @@ const AddReference = () => {
   };
 
   return (
-    <div className='px-5 mt-3'>
+    <div className='floating-panel'>
       <div className='d-flex justify-content-center'>
-        <h3>Add Reference</h3>
+        <h3 style={{ color: 'white' }}>Add Reference</h3>
       </div>
       <form className='d-flex flex-column align-items-center mt-3' onSubmit={handleSubmit}>
         {error && <div className="alert alert-danger w-50" role="alert">{error}</div>}
         {success && <div className="alert alert-success w-50" role="alert">{success}</div>}
         <div className="mb-3 w-50">
-          <label htmlFor="Applicant_ID" className="form-label">Applicant ID</label>
+          <label htmlFor="Applicant_ID" className="form-label" style={{ color: 'white' }}>Applicant ID</label>
           <input type="text" className="form-control" id="Applicant_ID" value={reference.Applicant_ID} onChange={(e) => setReference({...reference, Applicant_ID: e.target.value})} required />
         </div>
         <div className="mb-3 w-50">
-          <label htmlFor="Reference_Name" className="form-label">Reference Name</label>
+          <label htmlFor="Reference_Name" className="form-label" style={{ color: 'white' }}>Reference Name</label>
           <input type="text" className="form-control" id="Reference_Name" value={reference.Reference_Name} onChange={(e) => setReference({...reference, Reference_Name: e.target.value})} required />
         </div>
         <div className="mb-3 w-50">
-          <label htmlFor="Reference_PhoneNo" className="form-label">Phone Number</label>
+          <label htmlFor="Reference_PhoneNo" className="form-label" style={{ color: 'white' }}>Phone Number</label>
           <input type="text" className="form-control" id="Reference_PhoneNo" value={reference.Reference_PhoneNo} onChange={(e) => setReference({...reference, Reference_PhoneNo: e.target.value})} required />
         </div>
         <div className="mb-3 w-50">
-          <label htmlFor="Reference_Profession" className="form-label">Profession</label>
+          <label htmlFor="Reference_Profession" className="form-label" style={{ color: 'white' }}>Profession</label>
           <input type="text" className="form-control" id="Reference_Profession" value={reference.Reference_Profession} onChange={(e) => setReference({...reference, Reference_Profession: e.target.value})} required />
         </div>
         <div className="mb-3 w-50">
-          <label htmlFor="Reference_Years_Known" className="form-label">Years Known</label>
+          <label htmlFor="Reference_Years_Known" className="form-label" style={{ color: 'white' }}>Years Known</label>
           <input type="text" className="form-control" id="Reference_Years_Known" value={reference.Reference_Years_Known} onChange={(e) => setReference({...reference, Reference_Years_Known: e.target.value})} required />
         </div>
         <div className='d-flex justify-content-center w-50'>

@@ -89,9 +89,9 @@ const Applications = () => {
   };
 
   return (
-    <div className="container mt-4">
+    <div className="floating-panel">
       <div className="d-flex justify-content-between align-items-center mb-3">
-        <h3>Job Applications</h3>
+        <h3 style={{ color: 'white' }}>Job Applications</h3>
         <Link to="/dashboard/add_application" className="btn btn-success">
           Add Application
         </Link>
@@ -107,7 +107,7 @@ const Applications = () => {
         />
       </div>
       <div className="table-responsive">
-        <table className="table table-striped table-bordered">
+        <table className="table table-striped table-dark">
           <thead>
             <tr>
               <th>ID</th>

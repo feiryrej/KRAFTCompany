@@ -45,12 +45,12 @@ const EditApplicant = () => {
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center mt-3">
-      <div className="p-3 rounded w-50 border">
-        <h3 className="text-center">Edit Applicant</h3>
+    <div className="floating-panel d-flex justify-content-center align-items-center mt-3">
+      <div className="p-3 rounded w-50">
+        <h3 className="text-center text-white">Edit Applicant</h3>
         <form className="row g-1" onSubmit={handleSubmit}>
           <div className="col-12">
-            <label htmlFor="inputName" className="form-label">
+            <label htmlFor="inputName" className="form-label text-white">
               Name
             </label>
             <input
@@ -66,7 +66,7 @@ const EditApplicant = () => {
             />
           </div>
           <div className="col-12">
-            <label htmlFor="inputSSSNumber" className="form-label">
+            <label htmlFor="inputSSSNumber" className="form-label text-white">
               SSS Number
             </label>
             <input
@@ -82,7 +82,7 @@ const EditApplicant = () => {
             />
           </div>
           <div className="col-12">
-            <label htmlFor="inputAddress" className="form-label">
+            <label htmlFor="inputAddress" className="form-label text-white">
               Address
             </label>
             <input
@@ -98,7 +98,7 @@ const EditApplicant = () => {
             />
           </div>
           <div className="col-12">
-            <label htmlFor="inputPhoneNo" className="form-label">
+            <label htmlFor="inputPhoneNo" className="form-label text-white">
               Phone Number
             </label>
             <input
@@ -114,7 +114,7 @@ const EditApplicant = () => {
             />
           </div>
           <div className="col-12">
-            <label htmlFor="inputEmail" className="form-label">
+            <label htmlFor="inputEmail" className="form-label text-white">
               Email
             </label>
             <input

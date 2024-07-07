@@ -2,6 +2,7 @@ import React from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import "./style.css"; // Import the custom CSS file
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -16,10 +17,16 @@ const Dashboard = () => {
       .catch(err => console.log(err));
   }
 
+  const sidebarStyles = {
+    boxShadow: '0px 12px 36px rgba(0, 0, 0, 0.5)',
+    borderRadius: '10px',
+    padding: '20px'
+  };
+
   return (
     <div className="container-fluid dashboard-container">
       <div className="row flex-nowrap">
-        <div className="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
+        <div className="col-auto col-md-3 col-xl-2 px-sm-2 px-0" style={sidebarStyles}>
           <div className="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
             <Link
               to="/dashboard"
@@ -102,8 +109,8 @@ const Dashboard = () => {
           </div>
         </div>
         <div className="col p-0 m-0 overflow-hidden">
-          <div className="p-2 d-flex justify-content-center shadow">
-            <h4>Applicant Management System</h4>
+          <div className="p-2 d-flex justify-content-center shadow custom-background">
+            <h4 style={{ color: 'white' }}>Applicant Management System</h4>
           </div>
           <Outlet />
         </div>

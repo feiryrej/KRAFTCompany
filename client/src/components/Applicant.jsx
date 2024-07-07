@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import "./style.css"; // Import the CSS file
 
 const Applicant = () => {
   const [applicants, setApplicants] = useState([]);
@@ -39,7 +40,9 @@ const Applicant = () => {
 
   const handleDelete = async (id) => {
     try {
-      const confirmDelete = window.confirm("Are you sure you want to delete this applicant?");
+      const confirmDelete = window.confirm(
+        "Are you sure you want to delete this applicant?"
+      );
       if (!confirmDelete) {
         return;
       }
@@ -49,7 +52,7 @@ const Applicant = () => {
       );
       if (response.status === 200) {
         fetchApplicants();
-      } 
+      }
     } catch (error) {
       console.error("Error deleting applicant:", error);
       setError("Failed to delete applicant");
@@ -68,17 +71,17 @@ const Applicant = () => {
         <p><strong>Email:</strong> ${applicant.Email}</p>
       </div>
     `;
-    
-    const newWindow = window.open('', '', 'width=800,height=600');
+
+    const newWindow = window.open("", "", "width=800,height=600");
     newWindow.document.write(printContent);
     newWindow.document.close();
     newWindow.print();
   };
 
   return (
-    <div className="px-5 mt-3">
+    <div className="floating-panel">
       <div className="d-flex justify-content-between align-items-center mb-3">
-        <h3>Applicant List</h3>
+        <h3 style={{ color: 'white' }}>Applicant List</h3>
         <Link to="/dashboard/add_applicant" className="btn btn-success">
           Add Applicant
         </Link>
@@ -94,7 +97,7 @@ const Applicant = () => {
         />
       </div>
       <div className="table-responsive">
-        <table className="table table-striped">
+        <table className="table table-striped table-dark">
           <thead>
             <tr>
               <th>ID</th>
@@ -119,12 +122,12 @@ const Applicant = () => {
                   <div className="btn-group" role="group">
                     <Link
                       to={`/dashboard/edit_applicant/${applicant.Applicant_ID}`}
-                      className="btn btn-info btn-sm me-2"
+                      className="btn btn-info btn-sm"
                     >
                       Edit
                     </Link>
                     <button
-                      className="btn btn-warning btn-sm me-2"
+                      className="btn btn-warning btn-sm"
                       onClick={() => handleDelete(applicant.Applicant_ID)}
                     >
                       Delete
