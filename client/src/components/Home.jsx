@@ -48,7 +48,7 @@ function Home() {
   return (
     <div>
       <div className="p-3 d-flex justify-content-around mt-3 text-white">
-        <div className="px-3 pt-2 pb-3 border shadow-sm w-25">
+        <div className="floating-panel px-3 pt-2 pb-3 border shadow-sm w-25">
           <div className="text-center pb-1">
             <h4>Admin</h4>
           </div>
@@ -57,7 +57,7 @@ function Home() {
             <h5>Total: {adminCount}</h5>
           </div>
         </div>
-        <div className="px-3 pt-2 pb-3 border shadow-sm w-25">
+        <div className="floating-panel px-3 pt-2 pb-3 border shadow-sm w-25">
           <div className="text-center pb-1">
             <h4>Applicants</h4>
           </div>
@@ -66,7 +66,7 @@ function Home() {
             <h5>Total: {applicantCount}</h5>
           </div>
         </div>
-        <div className="px-3 pt-2 pb-3 border shadow-sm w-25">
+        <div className="floating-panel px-3 pt-2 pb-3 border shadow-sm w-25">
           <div className="text-center pb-1">
             <h4>Applications</h4>
           </div>
@@ -76,7 +76,25 @@ function Home() {
           </div>
         </div>
       </div>
-
+      <div className="floating-panel d-flex justify-content-around align-items-center mt-4">
+        <div>
+          <img
+            src="/logoim.png"
+            alt="Logo"
+            className="img-fluid"
+            style={{ maxHeight: "70%", maxWidth: "70%", objectFit: "contain", marginLeft: "20px" }}
+          />
+        </div>
+        <div className="w-50">
+          <h2 style={{ color: 'white', fontSize: '2.5rem' }}>KRAFT Company</h2>
+          <p style={{ color: 'white', fontSize: '1.5rem', lineHeight: '1.5' }}>
+            K.R.A.F.T. Company, a leading tech organization, is seeking to streamline its employment
+            application process by implementing a comprehensive database system for the company's
+            employment application form. The aim is to efficiently manage the influx of applications, track
+            candidate progress, and facilitate seamless communication between recruiters and applicants.
+          </p>
+        </div>
+      </div>
     </div>
   );
 }
