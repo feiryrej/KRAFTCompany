@@ -797,6 +797,47 @@ router.get("/application_counts", (req, res) => {
   });
 });
 
+router.get("/avg_salary_by_position", (req, res) => {
+  const sql = "SELECT Employment_Position, AVG(Employment_Salary) AS Avg_Salary FROM Employment_History GROUP BY Employment_Position";
+
+  con.query(sql, (err, result) => {
+    if (err) {
+      console.error("Error executing query:", err);
+      return res.status(500).json({ status: "Error", error: "Failed to fetch average salaries by position" });
+    }
+    console.log("Fetched average salaries by position successfully:", result);
+    return res.json({ status: "Success", avgSalariesByPosition: result });
+  });
+});
+
+
+// Backend route
+router.get("/applicants_with_previous_applications", (req, res) => {
+  const sql = "SELECT Applicant_ID, Applied_Before_Where FROM job_Application WHERE has_Applied_Before = 1;";
+
+  con.query(sql, (err, result) => {
+    if (err) {
+      console.error("Error executing query:", err);
+      return res.status(500).json({ status: "Error", error: "Failed to fetch applicants with previous applications" });
+    }
+    console.log("Fetched applicants with previous applications successfully:", result);
+    return res.json({ status: "Success", applicantsWithPreviousApplications: result });
+  });
+});
+
+router.get("/education_levels", (req, res) => {
+  const sql = "SELECT Education_Level, COUNT(*) AS Applicant_Count FROM Education_History GROUP BY Education_Level";
+
+  con.query(sql, (err, result) => {
+    if (err) {
+      console.error("Error executing query:", err);
+      return res.status(500).json({ status: "Error", error: "Failed to fetch education levels" });
+    }
+    console.log("Fetched education levels successfully:", result);
+    return res.json({ status: "Success", educationLevels: result });
+  });
+});
+
 
 
 export { router as adminRouter };

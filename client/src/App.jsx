@@ -24,6 +24,9 @@ import EasyQuery1 from './components/EasyQuery1'
 import EasyQuery2 from './components/EasyQuery2';
 import EasyQuery3 from './components/EasyQuery3';
 import ModerateQuery1 from './components/ModerateQuery1';
+import ModerateQuery2 from './components/ModerateQuery2';
+import ModerateQuery3 from './components/ModerateQuery3';
+import ModerateQuery4 from './components/ModerateQuery4';
 
 function App() {
   return (
@@ -52,6 +55,9 @@ function App() {
           <Route path="/dashboard/easyquery2" element={<EasyQuery2 />} />
           <Route path="/dashboard/easyquery3" element={<EasyQuery3 />} />
           <Route path="/dashboard/moderatequery1" element={<ModerateQuery1 />} />
+          <Route path="/dashboard/moderatequery2" element={<ModerateQuery2 />} />
+          <Route path="/dashboard/moderatequery3" element={<ModerateQuery3 />} />
+          <Route path="/dashboard/moderatequery4" element={<ModerateQuery4 />} />
         </Route>
       </Routes>
     </BrowserRouter>
