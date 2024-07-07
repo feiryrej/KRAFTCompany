@@ -47,7 +47,7 @@ function Home() {
 
   return (
     <div>
-      <div className="p-3 d-flex justify-content-around mt-3">
+      <div className="p-3 d-flex justify-content-around mt-3 text-white">
         <div className="px-3 pt-2 pb-3 border shadow-sm w-25">
           <div className="text-center pb-1">
             <h4>Admin</h4>
@@ -77,24 +77,6 @@ function Home() {
         </div>
       </div>
 
-      {/* List of admin */}
-      <div className="mt-4 px-5 pt-3">
-        <h3>List of Admins</h3>
-        <table className="table">
-          <thead>
-            <tr>
-              <th>Email</th>
-            </tr>
-          </thead>
-          <tbody>
-            {admins.map((admin) => (
-              <tr key={admin.id}>
-                <td>{admin.email}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
     </div>
   );
 }
