@@ -167,7 +167,7 @@
     backdrop-filter: blur(15px); /* Increase blur */
     -webkit-backdrop-filter: blur(15px); /* For Safari support */
     border-radius: 15px; /* Slightly more rounded corners */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Stronger shadow */
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5); /* Stronger shadow */
     padding: 20px;
     margin: 20px auto;
     max-width: 90%;

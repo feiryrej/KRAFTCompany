@@ -9,6 +9,7 @@ import Education from './components/Education';
 import Application from './components/Application';
 import Employment from './components/Employment';
 import Reference from './components/Reference';
+import Queries from './components/Queries';
 import AddApplicant from './components/AddApplicant';
 import EditApplicant from './components/EditApplicant';
 import AddEducation from './components/AddEducation';
@@ -19,6 +20,10 @@ import AddApplication from './components/AddApplication';
 import EditApplication from './components/EditApplication';
 import AddReference from './components/AddReference';
 import EditReference from './components/EditReference';
+import EasyQuery1 from './components/EasyQuery1'
+import EasyQuery2 from './components/EasyQuery2';
+import EasyQuery3 from './components/EasyQuery3';
+import ModerateQuery1 from './components/ModerateQuery1';
 
 function App() {
   return (
@@ -32,6 +37,7 @@ function App() {
           <Route path="/dashboard/employment" element={<Employment />} />
           <Route path="/dashboard/application" element={<Application />} />
           <Route path="/dashboard/reference" element={<Reference />} />
+          <Route path="/dashboard/queries" element={<Queries />} />
           <Route path="/dashboard/add_applicant" element={<AddApplicant />} />
           <Route path="/dashboard/add_education" element={<AddEducation />} />
           <Route path="/dashboard/add_employment" element={<AddEmployment />} />
@@ -42,6 +48,10 @@ function App() {
           <Route path="/dashboard/edit_employment/:id" element={<EditEmployment />} />
           <Route path="/dashboard/edit_application/:id" element={<EditApplication />} />
           <Route path="/dashboard/edit_reference/:id" element={<EditReference />} />
+          <Route path="/dashboard/easyqueary1" element={<EasyQuery1 />} />
+          <Route path="/dashboard/easyquery2" element={<EasyQuery2 />} />
+          <Route path="/dashboard/easyquery3" element={<EasyQuery3 />} />
+          <Route path="/dashboard/moderatequery1" element={<ModerateQuery1 />} />
         </Route>
       </Routes>
     </BrowserRouter>

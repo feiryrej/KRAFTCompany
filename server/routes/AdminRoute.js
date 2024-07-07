@@ -725,9 +725,6 @@ router.put("/edit_reference/:id", (req, res) => {
       return res.json({ status: "Success" });
     });
   });
-  
-  
-  
 
 // Delete a reference by ID
 router.delete("/delete_reference/:id", (req, res) => {
@@ -744,5 +741,62 @@ router.delete("/delete_reference/:id", (req, res) => {
     return res.json({ status: "Success", result });
   });
 });
+
+// GET /auth/applications_with_high_salary
+router.get("/applications_with_high_salary", (req, res) => {
+  const sql = "SELECT * FROM job_application WHERE Salary_Desired > ?";
+  const salaryThreshold = 50000;
+
+  con.query(sql, [salaryThreshold], (err, result) => {
+    if (err) {
+      console.error("Error executing query:", err);
+      return res.status(500).json({ status: "Error", error: "Failed to fetch job applications" });
+    }
+    return res.json({ status: "Success", applications: result });
+  });
+});
+
+router.get('/get_applicants_sorted_by_name', (req, res) => {
+  const sql = 'SELECT * FROM Applicant ORDER BY Name';
+
+  con.query(sql, (err, result) => {
+    if (err) {
+      console.error('Error executing query:', err);
+      return res.status(500).json({ status: 'Error', error: 'Failed to fetch applicants sorted by name' });
+    }
+    console.log('Fetched applicants sorted by name successfully:', result);
+    return res.json({ status: 'Success', applicants: result });
+  });
+});
+
+// Backend route
+router.get("/applicants_in_makati", (req, res) => {
+  const sql = "SELECT * FROM Applicant WHERE Address LIKE '%Makati%';";
+
+  con.query(sql, (err, result) => {
+    if (err) {
+      console.error("Error executing query:", err);
+      return res.status(500).json({ status: "Error", error: "Failed to fetch applicants in Makati" });
+    }
+    console.log("Fetched applicants in Makati successfully:", result);
+    return res.json({ status: "Success", applicants: result });
+  });
+});
+
+// Backend route
+router.get("/application_counts", (req, res) => {
+  const sql = "SELECT Position, COUNT(*) AS Application_Count FROM job_application GROUP BY Position;";
+
+  con.query(sql, (err, result) => {
+    if (err) {
+      console.error("Error executing query:", err);
+      return res.status(500).json({ status: "Error", error: "Failed to fetch application counts" });
+    }
+    console.log("Fetched application counts successfully:", result);
+    return res.json({ status: "Success", applicationCounts: result });
+  });
+});
+
+
 
 export { router as adminRouter };

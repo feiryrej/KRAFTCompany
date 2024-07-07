@@ -99,6 +99,15 @@ const Dashboard = () => {
                   <span className="ms-1 d-none d-sm-inline">References</span>
                 </Link>
               </li>
+              <li>
+                <Link
+                  to="/Dashboard/Queries"
+                  className="nav-link px-0 align-middle text-white"
+                >
+                  <i className="bi bi-database"></i>{" "}
+                  <span className="ms-1 d-none d-sm-inline">Queries</span>
+                </Link>
+              </li>
               <li onClick={handleLogout}>
                 <a href="#" className="nav-link px-0 align-middle text-white">
                   <i className="fs-4 bi-power"></i>{" "}
