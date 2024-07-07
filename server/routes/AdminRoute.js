@@ -838,6 +838,91 @@ router.get("/education_levels", (req, res) => {
   });
 });
 
+router.get("/detailed_applicants", (req, res) => {
+  console.log('Received GET request at /auth/detailed_applicants');
+  const sql = `
+    SELECT A.Applicant_ID, A.Name, A.SSS_Number, A.Address, A.Phone_No, A.Email,
+           E.Employment_History_ID, E.Employment_Start_Date, E.Employment_End_Date,
+           E.Employment_Company_Name, E.Employment_Company_Address, E.Employment_Salary,
+           E.Employment_Position, E.Employment_Reason_For_Leaving
+    FROM Applicant A
+    JOIN Employment_History E ON A.Applicant_ID = E.Applicant_ID
+  `;
+
+  con.query(sql, (err, result) => {
+    if (err) {
+      console.error("Error executing query:", err);
+      return res.status(500).json({ status: "Error", error: "Failed to fetch detailed applicants with employment history" });
+    }
+    console.log("Fetched detailed applicants with employment history successfully:", result);
+    return res.json({ status: "Success", detailedApplicants: result });
+  });
+});
+
+router.get("/difficult_query_2", (req, res) => {
+  console.log('Received GET request at /auth/difficult_query_2');
+  const sql = `
+    SELECT 
+      a.Name AS Applicant_Name,
+      eh.Education_Subjects AS Education_Background,
+      ap.Special_Training AS Specialized_Training,
+      ap.Position AS Latest_Applied_Position,
+      ap.Date_of_Application AS Latest_Application_Date
+    FROM 
+      Applicant a
+    JOIN 
+      Education_History eh ON a.Applicant_ID = eh.Applicant_ID
+    JOIN 
+      job_application ap ON a.Applicant_ID = ap.Applicant_ID
+    WHERE 
+      (eh.Education_Subjects LIKE '%Computer Science%' OR eh.Education_Subjects LIKE '%Information Technology%')
+      AND ap.Date_of_Application = (SELECT MAX(ap2.Date_of_Application) 
+                                    FROM job_application ap2 
+                                    WHERE ap2.Applicant_ID = a.Applicant_ID);
+  `;
+
+  con.query(sql, (err, result) => {
+    if (err) {
+      console.error("Error executing query:", err);
+      return res.status(500).json({ status: "Error", error: "Failed to fetch applicants with specialized training" });
+    }
+    console.log("Fetched applicants with specialized training successfully:", result);
+    return res.json({ status: "Success", applicants: result });
+  });
+});
+
+
+router.get("/difficult_query_3", (req, res) => {
+  console.log('Received GET request at /auth/difficult_query_3');
+  const sql = `
+    SELECT 
+      a.Name AS Applicant_Name,
+      ap.Position AS Last_Applied_Position,
+      ap.Date_of_Application AS Last_Application_Date,
+      r.Reference_Name AS Reference_Name,
+      r.Reference_Years_KNown AS Reference_Years_KNown
+    FROM 
+      Applicant a
+    JOIN 
+      Reference r ON a.Applicant_ID = r.Applicant_ID
+    JOIN 
+      job_application ap ON a.Applicant_ID = ap.Applicant_ID
+    WHERE 
+      r.Reference_Years_KNown > 5
+      AND ap.Date_of_Application = (SELECT MAX(ap2.Date_of_Application) 
+                                    FROM job_application ap2 
+                                    WHERE ap2.Applicant_ID = a.Applicant_ID);
+  `;
+
+  con.query(sql, (err, result) => {
+    if (err) {
+      console.error("Error executing query:", err);
+      return res.status(500).json({ status: "Error", error: "Failed to fetch applicants with references" });
+    }
+    console.log("Fetched applicants with references successfully:", result);
+    return res.json({ status: "Success", applicants: result });
+  });
+});
 
 
 export { router as adminRouter };
