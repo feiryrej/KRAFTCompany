@@ -89,7 +89,10 @@ const AddReference = () => {
           <label htmlFor="Reference_Years_Known" className="form-label">Years Known</label>
           <input type="text" className="form-control" id="Reference_Years_Known" value={reference.Reference_Years_Known} onChange={(e) => setReference({...reference, Reference_Years_Known: e.target.value})} required />
         </div>
-        <button type="submit" className="btn btn-primary">Add Reference</button>
+        <div className='d-flex justify-content-center w-50'>
+          <Link to="/dashboard/reference" className="btn btn-secondary me-2">Cancel</Link>
+          <button type="submit" className="btn btn-success">Add</button>
+        </div>
       </form>
     </div>
   );

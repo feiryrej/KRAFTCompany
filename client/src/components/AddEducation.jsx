@@ -102,7 +102,10 @@ const AddEducation = () => {
           <label htmlFor="Education_Subjects" className="form-label">Subjects</label>
           <input type="text" className="form-control" id="Education_Subjects" value={education.Education_Subjects} onChange={(e) => setEducation({...education, Education_Subjects: e.target.value})} required />
         </div>
-        <button type="submit" className="btn btn-primary">Add Education History</button>
+        <div className='d-flex justify-content-center w-50'>
+          <Link to="/dashboard/education" className="btn btn-secondary me-2">Cancel</Link>
+          <button type="submit" className="btn btn-success">Add</button>
+        </div>
       </form>
     </div>
   );

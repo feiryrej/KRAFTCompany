@@ -149,7 +149,10 @@ const AddApplication = () => {
           <label htmlFor="Special_Skills" className="form-label">Special Skills</label>
           <input type="text" className="form-control" id="Special_Skills" value={application.Special_Skills} onChange={(e) => setApplication({...application, Special_Skills: e.target.value})} />
         </div>
-        <button type="submit" className="btn btn-primary">Add Application</button>
+        <div className='d-flex justify-content-center w-50'>
+          <Link to="/dashboard/application" className="btn btn-secondary me-2">Cancel</Link>
+          <button type="submit" className="btn btn-success">Add</button>
+        </div>
       </form>
     </div>
   );

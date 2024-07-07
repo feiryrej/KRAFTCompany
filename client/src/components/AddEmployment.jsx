@@ -104,7 +104,10 @@ const AddEmployment = () => {
           <label htmlFor="Employment_Reason_For_Leaving" className="form-label">Reason for Leaving</label>
           <input type="text" className="form-control" id="Employment_Reason_For_Leaving" value={employment.Employment_Reason_For_Leaving} onChange={(e) => setEmployment({...employment, Employment_Reason_For_Leaving: e.target.value})} />
         </div>
-        <button type="submit" className="btn btn-primary">Add Employment History</button>
+        <div className='d-flex justify-content-center w-50'>
+          <Link to="/dashboard/employment" className="btn btn-secondary me-2">Cancel</Link>
+          <button type="submit" className="btn btn-success">Add</button>
+        </div>
       </form>
     </div>
   );
