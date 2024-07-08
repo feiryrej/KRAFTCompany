@@ -7,6 +7,7 @@ import path from "path";
 
 const router = express.Router();
 
+// Route for handling admin login
 router.post("/adminlogin", (req, res) => {
   const sql = "SELECT * from admin Where email = ? and password = ?";
   con.query(sql, [req.body.email, req.body.password], (err, result) => {
@@ -26,9 +27,10 @@ router.post("/adminlogin", (req, res) => {
   });
 });
 
+// Route for adding a new applicant
 router.post("/add_applicant", (req, res) => {
-  const randomNumber1 = Math.floor(1000 + Math.random() * 9000); // Generates a random number between 1000 and 9999
-  const randomNumber2 = Math.floor(1000 + Math.random() * 9000); // Generates another random number between 1000 and 9999
+  const randomNumber1 = Math.floor(1000 + Math.random() * 9000); 
+  const randomNumber2 = Math.floor(1000 + Math.random() * 9000); 
   const applicantId = `DLG-${randomNumber1}-${randomNumber2}`;
 
   const sql =
@@ -56,6 +58,7 @@ router.post("/add_applicant", (req, res) => {
   });
 });
 
+// Route for fetching all applicants
 router.get("/get_applicants", (req, res) => {
   const sql =
     "SELECT Applicant_ID, Name, SSS_number, Address, Phone_No, Email FROM applicant";
@@ -72,6 +75,7 @@ router.get("/get_applicants", (req, res) => {
   });
 });
 
+// Route for fetching a specific applicant by their ID
 router.get("/applicant/:id", (req, res) => {
   const applicantId = req.params.id;
   const sql =
@@ -88,6 +92,7 @@ router.get("/applicant/:id", (req, res) => {
   });
 });
 
+// Route for editing an existing applicant by their ID
 router.put("/edit_applicant/:id", (req, res) => {
   const applicantId = req.params.id;
   const { Name, SSS_number, Address, Phone_No, Email } = req.body;
@@ -107,6 +112,7 @@ router.put("/edit_applicant/:id", (req, res) => {
   });
 });
 
+// Route for deleting an applicant and related records by ID
 router.delete("/auth/delete_applicant/:id", async (req, res) => {
   const id = req.params.id;
   try {
@@ -124,6 +130,7 @@ router.delete("/auth/delete_applicant/:id", async (req, res) => {
   }
 });
 
+// Async function to delete records from a specified table by Applicant_ID
 async function deleteFromTable(tableName, id) {
   return new Promise((resolve, reject) => {
     const sql = `DELETE FROM ${tableName} WHERE Applicant_ID = ?`;
@@ -138,7 +145,7 @@ async function deleteFromTable(tableName, id) {
   });
 }
 
-
+// Router for counting the number of admin
 router.get("/admin_count", (req, res) => {
   const sql = "SELECT COUNT(id) AS admin FROM admin";
   con.query(sql, (err, result) => {
@@ -147,6 +154,7 @@ router.get("/admin_count", (req, res) => {
   });
 });
 
+// Router for counting the number of applicant
 router.get("/applicant_count", (req, res) => {
   const sql = "SELECT COUNT(Applicant_id) AS applicants FROM applicant";
   con.query(sql, (err, result) => {
@@ -155,6 +163,7 @@ router.get("/applicant_count", (req, res) => {
   });
 });
 
+// Router for counting the number of application
 router.get("/application_count", (req, res) => {
   const sql =
     "SELECT COUNT(application_id) AS applications FROM job_application";
@@ -164,6 +173,7 @@ router.get("/application_count", (req, res) => {
   });
 });
 
+// Router for fetching admin record
 router.get("/admin_records", (req, res) => {
   const sql = "SELECT * FROM admin";
   con.query(sql, (err, result) => {
@@ -172,14 +182,16 @@ router.get("/admin_records", (req, res) => {
   });
 });
 
+// Route for logging out (clearing the token cookie)
 router.get("/logout", (req, res) => {
   res.clearCookie("token");
   return res.json({ Status: true });
 });
 
+// Route for adding a new education history
 router.post("/add_education", (req, res) => {
-  const randomNumber1 = Math.floor(1000 + Math.random() * 9000); // Generates a random number between 1000 and 9999
-  const randomNumber2 = Math.floor(1000 + Math.random() * 9000); // Generates another random number between 1000 and 9999
+  const randomNumber1 = Math.floor(1000 + Math.random() * 9000); 
+  const randomNumber2 = Math.floor(1000 + Math.random() * 9000); 
   const educationHistoryId = `EDID-${randomNumber1}-${randomNumber2}`;
   const {
     Applicant_ID,
@@ -227,7 +239,7 @@ router.post("/add_education", (req, res) => {
   });
 });
 
-// Example backend route with Express
+// Route for fetching all education history
 router.get("/get_educations", (req, res) => {
   const sql = "SELECT * FROM education_history";
 
@@ -243,6 +255,7 @@ router.get("/get_educations", (req, res) => {
   });
 });
 
+// Route for fetching a specific education history by their ID
 router.get("/education/:id", (req, res) => {
   const educationId = req.params.id;
   const sql = "SELECT * FROM education_history WHERE Education_History_ID = ?";
@@ -258,6 +271,7 @@ router.get("/education/:id", (req, res) => {
   });
 });
 
+// Route for editing an existing education history by their ID
 router.put("/edit_education/:id", (req, res) => {
   const educationId = req.params.id;
   const {
@@ -292,6 +306,7 @@ router.put("/edit_education/:id", (req, res) => {
   });
 });
 
+// Route for deleting an existing education history by their ID
 router.delete("/auth/delete_education/:id", (req, res) => {
   const educationId = req.params.id;
   const sql = "DELETE FROM education_history WHERE Education_History_ID = ?";
@@ -307,7 +322,7 @@ router.delete("/auth/delete_education/:id", (req, res) => {
   });
 });
 
-// POST /auth/add_employment
+// Route for adding a new employment history
 router.post("/add_employment", (req, res) => {
   const {
     Applicant_ID,
@@ -363,7 +378,7 @@ router.post("/add_employment", (req, res) => {
   });
 });
 
-// GET /auth/get_employments
+// Route for fetching all employment history
 router.get("/get_employments", (req, res) => {
   const sql = "SELECT * FROM employment_history";
 
@@ -379,7 +394,7 @@ router.get("/get_employments", (req, res) => {
   });
 });
 
-// GET /auth/get_employment/:id
+// Route for fetching a specific employment history by their ID
 router.get("/get_employment/:id", (req, res) => {
     const employmentId = req.params.id;
     const sql =
@@ -397,7 +412,7 @@ router.get("/get_employment/:id", (req, res) => {
   });
   
 
-// PUT /auth/edit_employment/:id - Update an employment record
+// Route for editing an existing employment history by their ID
 router.put("/edit_employment/:id", (req, res) => {
     const Employment_ID = req.params.id;
     const {
@@ -447,9 +462,7 @@ router.put("/edit_employment/:id", (req, res) => {
     });
   });
   
-  
-
-// DELETE /auth/delete_employment/:id
+// Route for deleting a specific employment history by their ID
 router.delete("/delete_employment/:id", (req, res) => {
   const employmentId = req.params.id;
   const sql = "DELETE FROM employment_history WHERE Employment_History_ID = ?";
@@ -468,7 +481,7 @@ router.delete("/delete_employment/:id", (req, res) => {
   });
 });
 
-// GET /auth/get_applications - Fetch all job applications
+// Route for adding a new application
 router.get("/get_application", (req, res) => {
   const sql = "SELECT * FROM job_application";
   con.query(sql, (err, result) => {
@@ -482,7 +495,7 @@ router.get("/get_application", (req, res) => {
   });
 });
 
-// POST /auth/add_application - Add a new job application
+// Route for fetching all application
 router.post("/add_application", (req, res) => {
   const {
     Applicant_ID,
@@ -532,8 +545,7 @@ router.post("/add_application", (req, res) => {
   });
 });
 
-
-// DELETE /auth/delete_application/:id - Delete a job application
+// Route for deleting an application by their ID
 router.delete("/delete_application/:id", (req, res) => {
   const Application_ID = req.params.id;
   const sql = "DELETE FROM job_application WHERE Application_ID = ?";
@@ -548,7 +560,7 @@ router.delete("/delete_application/:id", (req, res) => {
   });
 });
 
-// GET /auth/application/:id - Fetch a specific job application by ID
+// Route for fetching an existing application by their ID
 router.get("/application/:id", (req, res) => {
   const Application_ID = req.params.id;
   const sql = "SELECT * FROM job_application WHERE Application_ID = ?";
@@ -563,7 +575,7 @@ router.get("/application/:id", (req, res) => {
   });
 });
 
-// PUT /auth/edit_application/:id - Update a job application
+// Route for editing an existing application by their ID
 router.put("/edit_application/:id", (req, res) => {
   const Application_ID = req.params.id;
   const {
@@ -611,7 +623,7 @@ router.put("/edit_application/:id", (req, res) => {
   });
 });
 
-// Add a new reference
+// Route for adding a new reference
 router.post("/add_reference", (req, res) => {
   const randomNumber1 = Math.floor(1000 + Math.random() * 9000); // Generates a random number between 1000 and 9999
   const randomNumber2 = Math.floor(1000 + Math.random() * 9000); // Generates another random number between 1000 and 9999
@@ -658,7 +670,7 @@ router.post("/add_reference", (req, res) => {
   });
 });
 
-// Fetch all references
+// Route for fetching all applicants references
 router.get("/get_references", (req, res) => {
   const sql = "SELECT * FROM reference";
 
@@ -674,7 +686,7 @@ router.get("/get_references", (req, res) => {
   });
 });
 
-// Fetch a single reference by ID
+// Route for fetching a specific reference by their ID
 router.get("/reference/:id", (req, res) => {
   const referenceId = req.params.id;
   const sql = "SELECT * FROM reference WHERE Reference_ID = ?";
@@ -690,6 +702,7 @@ router.get("/reference/:id", (req, res) => {
   });
 });
 
+// Route for editing an existing reference by their ID
 router.put("/edit_reference/:id", (req, res) => {
     const referenceId = req.params.id;
     const {
@@ -726,7 +739,7 @@ router.put("/edit_reference/:id", (req, res) => {
     });
   });
 
-// Delete a reference by ID
+// Route for deleting a specific reference by their ID
 router.delete("/delete_reference/:id", (req, res) => {
   const referenceId = req.params.id;
   const sql = "DELETE FROM reference WHERE Reference_ID = ?";
@@ -742,7 +755,7 @@ router.delete("/delete_reference/:id", (req, res) => {
   });
 });
 
-// GET /auth/applications_with_high_salary
+// Router for easy query 1 
 router.get("/applications_with_high_salary", (req, res) => {
   const sql = "SELECT * FROM job_application WHERE Salary_Desired > ?";
   const salaryThreshold = 50000;
@@ -756,6 +769,7 @@ router.get("/applications_with_high_salary", (req, res) => {
   });
 });
 
+// Router for easy query 2
 router.get('/get_applicants_sorted_by_name', (req, res) => {
   const sql = 'SELECT * FROM Applicant ORDER BY Name';
 
@@ -769,7 +783,7 @@ router.get('/get_applicants_sorted_by_name', (req, res) => {
   });
 });
 
-// Backend route
+// Router for easy query 3
 router.get("/applicants_in_makati", (req, res) => {
   const sql = "SELECT * FROM Applicant WHERE Address LIKE '%Makati%';";
 
@@ -783,7 +797,7 @@ router.get("/applicants_in_makati", (req, res) => {
   });
 });
 
-// Backend route
+// Router for moderate query 1 
 router.get("/application_counts", (req, res) => {
   const sql = "SELECT Position, COUNT(*) AS Application_Count FROM job_application GROUP BY Position;";
 
@@ -797,6 +811,7 @@ router.get("/application_counts", (req, res) => {
   });
 });
 
+// Router for moderate query 2
 router.get("/avg_salary_by_position", (req, res) => {
   const sql = "SELECT Employment_Position, AVG(Employment_Salary) AS Avg_Salary FROM Employment_History GROUP BY Employment_Position";
 
@@ -810,8 +825,7 @@ router.get("/avg_salary_by_position", (req, res) => {
   });
 });
 
-
-// Backend route
+// Router for moderate query 3
 router.get("/applicants_with_previous_applications", (req, res) => {
   const sql = "SELECT Applicant_ID, Applied_Before_Where FROM job_Application WHERE has_Applied_Before = 1;";
 
@@ -825,6 +839,7 @@ router.get("/applicants_with_previous_applications", (req, res) => {
   });
 });
 
+// Router for moderate query 4
 router.get("/education_levels", (req, res) => {
   const sql = "SELECT Education_Level, COUNT(*) AS Applicant_Count FROM Education_History GROUP BY Education_Level";
 
@@ -838,6 +853,7 @@ router.get("/education_levels", (req, res) => {
   });
 });
 
+// Router for difficult query 1 
 router.get("/detailed_applicants", (req, res) => {
   console.log('Received GET request at /auth/detailed_applicants');
   const sql = `
@@ -859,6 +875,7 @@ router.get("/detailed_applicants", (req, res) => {
   });
 });
 
+// Router for difficult query 2
 router.get("/difficult_query_2", (req, res) => {
   console.log('Received GET request at /auth/difficult_query_2');
   const sql = `
@@ -891,7 +908,7 @@ router.get("/difficult_query_2", (req, res) => {
   });
 });
 
-
+// Router for difficult query 3
 router.get("/difficult_query_3", (req, res) => {
   console.log('Received GET request at /auth/difficult_query_3');
   const sql = `
