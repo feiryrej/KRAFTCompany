@@ -33,6 +33,7 @@ const ModerateQuery4 = () => {
         <hr />
         <div>
           <p>Which education levels do our applicants have, and how many applicants belong to each level?</p>
+          <p style={{ textAlign: 'center' }}>SELECT Education_Level, COUNT() AS Applicant_Count FROM Education_History GROUP BY Education_Level;</p>
           {error && <div className="alert alert-danger">{error}</div>}
         </div>
       </div>

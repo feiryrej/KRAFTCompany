@@ -50,6 +50,7 @@ const ModerateQuery3 = () => {
             Who are the applicants that have applied before, and where did they
             apply previously?
           </p>
+          <p style={{ textAlign: 'center' }}>SELECT Applicant_ID, Applied_Before_Where FROM job_Application WHERE has_Applied_Before = 1;</p>
           {error && <div className="alert alert-danger">{error}</div>}
         </div>
       </div>

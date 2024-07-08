@@ -33,7 +33,7 @@ const EasyQuery2 = () => {
         <hr />
         <div>
           <p>List all applicants sorted alphabetically by their names.</p>
-          <p style={{ textAlign: 'center' }}>SELECT * FROM Applicant ORDER BY Name</p>
+          <p style={{ textAlign: 'center' }}>SELECT * FROM Applicant ORDER BY Name;</p>
           {error && <div className="alert alert-danger">{error}</div>}
         </div>
       </div>

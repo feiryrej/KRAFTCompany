@@ -34,7 +34,7 @@ const EasyQuery3 = () => {
         <hr />
         <div>
           <p>Find applicants who reside in Makati City.</p>
-          <p style={{ textAlign: 'center' }}>SELECT * FROM Applicant WHERE Address LIKE '%Makati%</p>
+          <p style={{ textAlign: 'center' }}>SELECT * FROM Applicant WHERE Address LIKE '%Makati%;</p>
           {error && <div className="alert alert-danger">{error}</div>}
         </div>
       </div>

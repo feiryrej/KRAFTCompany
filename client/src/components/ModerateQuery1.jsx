@@ -34,6 +34,7 @@ const ModerateQuery1 = () => {
         <hr />
         <div>
           <p>How many applications are there for each position?</p>
+          <p style={{ textAlign: 'center' }}>SELECT Position, COUNT() AS Application_Count FROM job_application GROUP BY Position;</p>
           {error && <div className="alert alert-danger">{error}</div>}
         </div>
       </div>

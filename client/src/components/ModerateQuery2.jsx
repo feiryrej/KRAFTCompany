@@ -33,6 +33,10 @@ const ModerateQuery2 = () => {
         <hr />
         <div>
           <p>Determine the average salary offered for each employment position</p>
+          <p style={{ textAlign: 'center' }}>SELECT Employment_Position, 
+            AVG(Employment_Salary) AS Avg_Salary 
+            FROM Employment_History 
+            GROUP BY Employment_Position;</p>
           {error && <div className="alert alert-danger">{error}</div>}
         </div>
       </div>
