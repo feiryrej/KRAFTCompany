@@ -3,7 +3,7 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-image: url('/panoramic.jpg'); /* Adjust the path if necessary */
+    background-image: url('/pantry1.png'); /* Adjust the path if necessary */
     background-size: cover; /* Ensures the image covers the entire container */
     background-position: center; /* Centers the background image */
     animation: rotate 6s infinite alternate linear;
@@ -21,6 +21,7 @@
     text-align: center;
     z-index: 1; 
     box-shadow: 0px 12px 36px rgba(0, 0, 0, 0.5); 
+    border-radius: 20px;
 }
 
 
