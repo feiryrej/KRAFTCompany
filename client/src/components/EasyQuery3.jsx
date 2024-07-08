@@ -39,7 +39,7 @@ const EasyQuery3 = () => {
         </div>
       </div>
 
-      <div className="table-responsive w-75">
+      <div className="floating-panel table-responsive w-75">
         <table className="table table-striped table-dark">
           <thead>
             <tr>

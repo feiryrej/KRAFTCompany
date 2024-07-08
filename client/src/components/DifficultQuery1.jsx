@@ -44,7 +44,7 @@ const DifficultQuery1 = () => {
         </div>
       </div>
 
-      <div className="table-responsive w-100">
+      <div className="floating-panel table-responsive w-100">
         <table className="table table-striped table-dark">
           <thead>
             <tr>

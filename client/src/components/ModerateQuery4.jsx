@@ -38,7 +38,7 @@ const ModerateQuery4 = () => {
         </div>
       </div>
 
-      <div className="table-responsive w-50">
+      <div className="floating-panel table-responsive w-50">
         <table className="table table-striped table-dark">
           <thead>
             <tr>
