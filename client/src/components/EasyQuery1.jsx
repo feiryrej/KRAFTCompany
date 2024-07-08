@@ -34,6 +34,7 @@ const EasyQuery1 = () => {
         <hr />
         <div>
           <p>Retrieve applications from candidates who are seeking a salary higher than PHP 50,000.</p>
+          <p style={{ textAlign: 'center' }}>SELECT * FROM job_application WHERE Salary_Desired &gt; 50000</p>
           {error && <div className="alert alert-danger">{error}</div>}
         </div>
       </div>
