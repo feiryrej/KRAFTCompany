@@ -33,6 +33,23 @@ const DifficultQuery2 = () => {
         <hr />
         <div>
           <p>Identify applicants who have recently applied for positions, have backgrounds in Computer Science or Information Technology, and have received specialized training. Display details of their latest application.</p>
+          <p style={{ textAlign: 'center' }}>SELECT 
+      a.Name AS Applicant_Name,
+      eh.Education_Subjects AS Education_Background,
+      ap.Special_Training AS Specialized_Training,
+      ap.Position AS Latest_Applied_Position,
+      ap.Date_of_Application AS Latest_Application_Date
+    FROM 
+      Applicant a
+    JOIN 
+      Education_History eh ON a.Applicant_ID = eh.Applicant_ID
+    JOIN 
+      job_application ap ON a.Applicant_ID = ap.Applicant_ID
+    WHERE 
+      (eh.Education_Subjects LIKE '%Computer Science%' OR eh.Education_Subjects LIKE '%Information Technology%')
+      AND ap.Date_of_Application = (SELECT MAX(ap2.Date_of_Application) 
+                                    FROM job_application ap2 
+                                    WHERE ap2.Applicant_ID = a.Applicant_ID);</p>
           {error && <div className="alert alert-danger">{error}</div>}
         </div>
       </div>

@@ -34,6 +34,12 @@ const DifficultQuery1 = () => {
         <hr />
         <div>
           <p>Fetch detailed applicants including their employment history.</p>
+          <p style={{ textAlign: 'center' }}>SELECT A.Applicant_ID, A.Name, A.SSS_Number, A.Address, A.Phone_No, A.Email,
+           E.Employment_History_ID, E.Employment_Start_Date, E.Employment_End_Date,
+           E.Employment_Company_Name, E.Employment_Company_Address, E.Employment_Salary,
+           E.Employment_Position, E.Employment_Reason_For_Leaving
+          FROM Applicant A
+          JOIN Employment_History E ON A.Applicant_ID = E.Applicant_ID;</p>
           {error && <div className="alert alert-danger">{error}</div>}
         </div>
       </div>

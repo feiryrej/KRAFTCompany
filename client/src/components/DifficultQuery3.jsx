@@ -33,6 +33,23 @@ const DifficultQuery3 = () => {
         <hr />
         <div>
           <p>Identify applicants who have references from people they have known for more than 5 years, and display details about their most recent job application.</p>
+          <p style={{ textAlign: 'center' }}>SELECT 
+      a.Name AS Applicant_Name,
+      ap.Position AS Last_Applied_Position,
+      ap.Date_of_Application AS Last_Application_Date,
+      r.Reference_Name AS Reference_Name,
+      r.Reference_Years_KNown AS Reference_Years_KNown
+    FROM 
+      Applicant a
+    JOIN 
+      Reference r ON a.Applicant_ID = r.Applicant_ID
+    JOIN 
+      job_application ap ON a.Applicant_ID = ap.Applicant_ID
+    WHERE 
+      r.Reference_Years_KNown &gt; 5
+      AND ap.Date_of_Application = (SELECT MAX(ap2.Date_of_Application) 
+                                    FROM job_application ap2 
+                                    WHERE ap2.Applicant_ID = a.Applicant_ID);</p>
           {error && <div className="alert alert-danger">{error}</div>}
         </div>
       </div>
