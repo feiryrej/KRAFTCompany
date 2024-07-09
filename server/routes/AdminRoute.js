@@ -481,7 +481,7 @@ router.delete("/delete_employment/:id", (req, res) => {
   });
 });
 
-// Route for adding a new application
+// Route for fetching all application
 router.get("/get_application", (req, res) => {
   const sql = "SELECT * FROM job_application";
   con.query(sql, (err, result) => {
@@ -495,7 +495,7 @@ router.get("/get_application", (req, res) => {
   });
 });
 
-// Route for fetching all application
+// Route for adding a new application
 router.post("/add_application", (req, res) => {
   const {
     Applicant_ID,
@@ -513,67 +513,63 @@ router.post("/add_application", (req, res) => {
     Special_Skills,
   } = req.body;
 
-  const Application_ID = `AID-${Math.floor(1000 + Math.random() * 9000)}-${Math.floor(1000 + Math.random() * 9000)}`;
-
-  const sql = `INSERT INTO job_application (Application_ID, Applicant_ID, Position, Date_of_Application, Date_can_Start, Salary_Desired, is_Currently_Employed, can_Inquire_Current_Employer, has_Applied_Before, Applied_Before_Where, Applied_Before_When, Special_Study_Subject, Special_Training, Special_Skills) 
-               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-  const values = [
-    Application_ID,
-    Applicant_ID,
-    Position,
-    Date_of_Application,
-    Date_can_Start,
-    Salary_Desired,
-    is_Currently_Employed,
-    can_Inquire_Current_Employer,
-    has_Applied_Before,
-    Applied_Before_Where || null,
-    Applied_Before_When || null,
-    Special_Study_Subject || null,
-    Special_Training || null,
-    Special_Skills || null,
-  ];
-
-  con.query(sql, values, (err, result) => {
+  // Check if the applicant has already applied this year
+  const year = new Date().getFullYear();
+  const sqlCheckYear = `SELECT * FROM job_application WHERE Applicant_ID = ? AND YEAR(Date_of_Application) = ?`;
+  con.query(sqlCheckYear, [Applicant_ID, year], (err, result) => {
     if (err) {
-      console.error("Error executing insert query:", err);
-      return res
-        .status(500)
-        .json({ status: "Error", error: "Failed to add job application" });
+      console.error("Error checking application for the year:", err);
+      return res.status(500).json({ status: "Error", error: "Failed to check application" });
     }
-    return res.json({ status: "Success", Application_ID });
+
+    if (result.length > 0) {
+      return res.status(400).json({ status: "Error", error: "Applicant has already applied this year" });
+    }
+
+    // Check if the applicant has already applied to the same position
+    const sqlCheckPosition = `SELECT * FROM job_application WHERE Applicant_ID = ? AND Position = ?`;
+    con.query(sqlCheckPosition, [Applicant_ID, Position], (err, result) => {
+      if (err) {
+        console.error("Error checking application for the position:", err);
+        return res.status(500).json({ status: "Error", error: "Failed to check application" });
+      }
+
+      if (result.length > 0) {
+        return res.status(400).json({ status: "Error", error: "Applicant has already applied to this position" });
+      }
+
+      // If checks pass, proceed with inserting the new application
+      const Application_ID = `AID-${Math.floor(1000 + Math.random() * 9000)}-${Math.floor(1000 + Math.random() * 9000)}`;
+      const sql = `INSERT INTO job_application (Application_ID, Applicant_ID, Position, Date_of_Application, Date_can_Start, Salary_Desired, is_Currently_Employed, can_Inquire_Current_Employer, has_Applied_Before, Applied_Before_Where, Applied_Before_When, Special_Study_Subject, Special_Training, Special_Skills) 
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+      const values = [
+        Application_ID,
+        Applicant_ID,
+        Position,
+        Date_of_Application,
+        Date_can_Start,
+        Salary_Desired,
+        is_Currently_Employed,
+        can_Inquire_Current_Employer,
+        has_Applied_Before,
+        Applied_Before_Where || null,
+        Applied_Before_When || null,
+        Special_Study_Subject || null,
+        Special_Training || null,
+        Special_Skills || null,
+      ];
+
+      con.query(sql, values, (err, result) => {
+        if (err) {
+          console.error("Error executing insert query:", err);
+          return res.status(500).json({ status: "Error", error: "Failed to add job application" });
+        }
+        return res.json({ status: "Success", Application_ID });
+      });
+    });
   });
 });
 
-// Route for deleting an application by their ID
-router.delete("/delete_application/:id", (req, res) => {
-  const Application_ID = req.params.id;
-  const sql = "DELETE FROM job_application WHERE Application_ID = ?";
-  con.query(sql, [Application_ID], (err, result) => {
-    if (err) {
-      console.error("Error executing delete query:", err);
-      return res
-        .status(500)
-        .json({ status: "Error", error: "Failed to delete job application" });
-    }
-    return res.json({ status: "Success" });
-  });
-});
-
-// Route for fetching an existing application by their ID
-router.get("/application/:id", (req, res) => {
-  const Application_ID = req.params.id;
-  const sql = "SELECT * FROM job_application WHERE Application_ID = ?";
-  con.query(sql, [Application_ID], (err, result) => {
-    if (err) {
-      console.error("Error executing query:", err);
-      return res
-        .status(500)
-        .json({ status: "Error", error: "Failed to fetch job application" });
-    }
-    return res.json({ status: "Success", application: result });
-  });
-});
 
 // Route for editing an existing application by their ID
 router.put("/edit_application/:id", (req, res) => {
